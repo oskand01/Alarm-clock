@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
@@ -12,6 +13,7 @@ body {
 }
 header {
   width: 100%;
+  padding: 2rem;
 }
 
 
@@ -24,8 +26,11 @@ main {
 .clock-container {
   max-width: 20rem;
   margin: 0 auto;
+  padding: 2rem;
+  font-size: 2rem;
 }
 
 footer {
   width: 100%;
+  padding: 2rem;
 }
