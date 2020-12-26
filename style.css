@@ -11,26 +11,20 @@ body {
   flex-direction: column;
   width: 100%;
 }
-header {
-  width: 100%;
-  padding: 2rem;
-}
 
 
 
 main {
   width: 100%;
+  
 
 }
 
 .clock-container {
-  max-width: 20rem;
-  margin: 0 auto;
+  width: fit-content;
+  
+  margin: auto;
   padding: 2rem;
-  font-size: 2rem;
+  font-size: 10rem;
 }
 
-footer {
-  width: 100%;
-  padding: 2rem;
-}
