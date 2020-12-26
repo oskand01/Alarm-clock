@@ -19,10 +19,9 @@ setInterval(() => {
   if (time.minute < 10) {
     minutes.textContent = `0${time.minute}:`;
   }
-  
+
   seconds.textContent = `${time.second}`;
   if (time.second < 10) {
     seconds.textContent = `0${time.second}`;
   }
-  
-}, 100);
+}, 500);
