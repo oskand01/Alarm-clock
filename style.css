@@ -3,13 +3,15 @@
   padding: 0;
   box-sizing: border-box;
   text-align: center;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: roboto;
 }
 
 body {
   display: flex;
   flex-direction: column;
   width: 100%;
+  color: #32292f;
+  background-color: #f8faf1;
 }
 
 main {
@@ -19,12 +21,31 @@ main {
 
 .clock-container {
   width: fit-content;
-  color: #32292f;
+  max-width: 95%;
   background-color: #f4afab;
   margin: 10% auto;
   vertical-align: middle;
-  padding: 1rem 3rem 2rem;
+  padding: 0vw 7vw 2vw;
+  padding-top: -2rem;
+  border-radius: 0.5rem;
+  box-shadow: 1px 8px 10px -11px #32292f;
+}
 
-  font-size: 10rem;
-  border-radius: 1rem;
+.clock-container span {
+  font-size: 18vw;
+  color: #161216;
+}
+
+.clock-container p {
+  z-index: 100;
+  position: relative;
+  padding: 0.2rem 0.3rem 0rem;
+  margin: 0 auto;
+  bottom: 2vw;
+  font-weight: 400;
+  font-family: Arial, Helvetica, sans-serif;
+
+  background-color: white;
+  width: fit-content;
+  font-size: 3vw;
 }

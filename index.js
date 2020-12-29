@@ -1,15 +1,35 @@
+"use strict";
+
 function Time() {
-  this.date = new Date();
-  this.hour = this.date.getHours();
-  this.minute = this.date.getMinutes();
-  this.second = this.date.getSeconds();
+  this.time = new Date();
+  this.hour = this.time.getHours();
+  this.minute = this.time.getMinutes();
+  this.second = this.time.getSeconds();
+
+  this.year = this.time.getFullYear();
+  this.month = this.time.getMonth() + 1;
+  this.day = this.time.getDate();
 }
 
-setInterval(() => {
-  let time = new Time();
-  let hours = document.getElementById("hour");
-  let minutes = document.getElementById("minute");
-  let seconds = document.getElementById("second");
+function setDate() {
+  const date = new Time();
+  const dateParagraf = document.getElementById("date");
+  let month = date.month;
+  if (month < 10) {
+    month = `0${month}`;
+  }
+  let day = date.day;
+  if (day < 10) {
+    day = `0${day}`;
+  }
+  dateParagraf.textContent = `${date.year}-${month}-${day}`;
+}
+
+function setTime() {
+  const time = new Time();
+  const hours = document.getElementById("hour");
+  const minutes = document.getElementById("minute");
+  const seconds = document.getElementById("second");
 
   hours.textContent = `${time.hour}:`;
   if (time.hour < 10) {
@@ -24,4 +44,13 @@ setInterval(() => {
   if (time.second < 10) {
     seconds.textContent = `0${time.second}`;
   }
-}, 500);
+
+  if (time.hour === "0" && time.minute === "0" && time.second === "0") {
+    setDate();
+  }
+}
+
+setDate();
+setTime();
+
+setInterval(setTime, 1000);
