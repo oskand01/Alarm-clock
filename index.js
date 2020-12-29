@@ -45,21 +45,25 @@ function setTime() {
     seconds.textContent = `0${time.second}`;
   }
 
-  if (time.hour === "0" && time.minute === "0" && time.second === "0") {
+  if (time.hour === 0 && time.minute === 0 && time.second === 0) {
     setDate();
     
   }
+  console.log(time.second)
  transform();
 }
 
 function transform (){
   let element = document.getElementById("container");
-  console.log(element)
-  element.style.transition = "all 0.25s ease";
-  element.style.transform = "scale(1.005)";
+  element.style.transition = "all 0.1s linear";
+  element.style.transform = "scale(1.0025)";
+  element.style.backgroundColor = "#f8cbc9";
+  element.style.top = "5.3vw"
 
   setTimeout(() => {
     element.style.transform = "scale(1)";
+    element.style.backgroundColor = "#f4afab";
+    element.style.top = "5vw"
   }, 500);
   
 }
