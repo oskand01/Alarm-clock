@@ -23,11 +23,13 @@ main {
   width: fit-content;
   max-width: 95%;
   background-color: #f4afab;
-  margin: 10% auto;
+  margin: 0 auto;
   vertical-align: middle;
   padding: 0vw 7vw 2vw;
   padding-top: -2rem;
-  border-radius: 0.5rem;
+  border-radius: 0.3rem;
+  position: relative;
+  top: 5vw;
   box-shadow: 1px 8px 10px -11px #32292f;
 }
 

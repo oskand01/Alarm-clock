@@ -47,7 +47,21 @@ function setTime() {
 
   if (time.hour === "0" && time.minute === "0" && time.second === "0") {
     setDate();
+    
   }
+ transform();
+}
+
+function transform (){
+  let element = document.getElementById("container");
+  console.log(element)
+  element.style.transition = "all 0.25s ease";
+  element.style.transform = "scale(1.005)";
+
+  setTimeout(() => {
+    element.style.transform = "scale(1)";
+  }, 500);
+  
 }
 
 setDate();
