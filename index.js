@@ -43,7 +43,7 @@ function setTime() {
 
   if (hour === 0 && minute === 0 && second === 0) {
     setDate();
-  } else if (minute === 59 && second > 50) {
+  } else if (minute === 59 && second > 49) {
     transform();
   }
 }
@@ -62,7 +62,7 @@ function transform() {
     element.style.top = "6vw";
   }, 500);
 
-  element.style.backgroundColor = "#C8E6B3";
+  element.style.backgroundColor = "#DAEAD7";
 }
 
 setDate();
