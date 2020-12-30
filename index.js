@@ -43,7 +43,7 @@ function setTime() {
 
   if (hour === 0 && minute === 0 && second === 0) {
     setDate();
-  } else if (minute === 59 && second > 50) {
+  } else if (minute === 59 && second > 49) {
     transform();
   }
 }
