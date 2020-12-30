@@ -48,20 +48,21 @@ function setTime() {
   }
 }
 
-
 //last ten seconds every hour the
 function transform() {
   let element = document.getElementById("container");
   element.style.transition = "all 0.1s linear";
   element.style.transform = "scale(1.0025)";
   element.style.backgroundColor = "#f8cbc9";
-  element.style.top = "5.1vw";
+  element.style.top = "6.1vw";
 
   setTimeout(() => {
     element.style.transform = "scale(1)";
     element.style.backgroundColor = "#f4afab";
-    element.style.top = "5vw";
+    element.style.top = "6vw";
   }, 500);
+
+  element.style.backgroundColor = "#C8E6B3";
 }
 
 setDate();
