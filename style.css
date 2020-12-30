@@ -11,7 +11,7 @@ body {
   flex-direction: column;
   width: 100%;
   color: #32292f;
-  background-color: #f8faf1;
+  background-color: #f0f9f4;
 }
 
 main {
@@ -22,7 +22,7 @@ main {
 .clock-container {
   width: fit-content;
   max-width: 95%;
-  background-color: #f4afab;
+  background-color: #bedacc;
   margin: 0 auto;
   vertical-align: middle;
   padding: 0vw 7vw 2vw;
@@ -41,7 +41,7 @@ main {
 .clock-container p {
   z-index: 100;
   position: relative;
-  padding: 0.2rem 0.3rem 0rem;
+  padding: 0.3vw 0.5vw 0vw;
   margin: 0 auto;
   bottom: 2vw;
   font-weight: 400;
