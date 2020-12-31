@@ -7,10 +7,11 @@ const dateParagraf = document.getElementById("date");
 const alarmContainer = document.getElementById("alarm-container");
 const clockContainer = document.querySelector(".clock-container");
 const newAlarmButton = document.getElementById("menu");
+let alarms = [];
 
 function Alarm() {
   this.active = true;
-  this.alarmTime = this.alarmTime;
+  this.alarmTime = false;
 
   function setActive(active) {
     this.active = active;
@@ -29,7 +30,13 @@ function Alarm() {
   }
 }
 
-function setDate() {
+function initApp() {
+  dateParagraf.textContent = getDate();
+  setTime();
+  initiateNewAlarmButton();
+}
+
+function getDate() {
   const date = new Date();
   let month = date.getMonth() + 1;
   let day = date.getDate();
@@ -42,7 +49,7 @@ function setDate() {
     day = `0${day}`;
   }
 
-  dateParagraf.textContent = `${date.getFullYear()}-${month}-${day}`;
+  return `${date.getFullYear()}-${month}-${day}`;
 }
 
 function initiateNewAlarmButton() {
@@ -83,7 +90,7 @@ function setTime() {
   }
 
   if (hour === 0 && minute === 0 && second === 0) {
-    setDate();
+    getDate();
   } else if (second > 49) {
     transform();
   }
@@ -92,17 +99,12 @@ function setTime() {
 //last ten seconds every hour the
 function transform() {
   let element = document.getElementById("container");
-  
   element.style.backgroundColor = "#f8cbc9";
 
   setTimeout(() => {
-    
     element.style.backgroundColor = "#CDE3CA";
   }, 500);
 }
 
-setDate();
-setTime();
-initiateNewAlarmButton();
-
+initApp();
 setInterval(setTime, 1000);

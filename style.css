@@ -17,6 +17,8 @@ body {
 header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  height: 6vw;
 }
 
 main {
@@ -27,7 +29,7 @@ main {
 .clock-container {
   width: 100%;
   background-color: #cde3ca;
-  margin: 2vw auto;
+  margin: 0 auto;
   vertical-align: middle;
   padding: 0vw 0vw 4vw;
   
@@ -59,35 +61,32 @@ main {
 }
 
 #logo {
-  position: relative;
   display: inline-block;
   margin: 0;
+  margin-left: 1.7vw;
   padding: 0;
-  left: 1.5vw;
-  top: .9vw;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 200;
-  font-size: 3vw;
+  font-size: 3.1vw;
   color: #292929;
   
 }
 
 #menu {
-  background-color: inherit;
-  width: 3.1vw;
-  height: 3.1vw;
-  max-height: 2.9rem;
-  max-width: 2.9rem;
-  position: relative;
-  right: 1.9vw;
-  top: 1.3vw;
+  background-color: transparent;
+  margin: 0;
+  margin-right: 2vw;
+  padding: 0;
+  
   border: none;
   opacity: 60%;
   transition: 0.3s;
 }
 
 #menu img {
-  width: 100%;
+  max-width: 2.8vw;
+  min-width: 2.8vw;
+  
 }
 
 #menu:hover {
