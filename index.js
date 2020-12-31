@@ -4,20 +4,61 @@ const hoursSpan = document.getElementById("hour");
 const minutesSpan = document.getElementById("minute");
 const secondsSpan = document.getElementById("second");
 const dateParagraf = document.getElementById("date");
+const alarmContainer = document.getElementById("alarm-container");
+const clockContainer = document.querySelector(".clock-container");
+const newAlarmButton = document.getElementById("menu");
+
+function Alarm() {
+  this.active = true;
+  this.alarmTime = this.alarmTime;
+
+  function setActive(active) {
+    this.active = active;
+  }
+
+  function getActive() {
+    return this.active;
+  }
+
+  function setAlarmTime(alarmTime) {
+    this.alarmTime = alarmTime;
+  }
+
+  function getAlarmTime() {
+    return this.alarmTime;
+  }
+}
 
 function setDate() {
   const date = new Date();
-
   let month = date.getMonth() + 1;
+  let day = date.getDate();
+
   if (month < 10) {
     month = `0${month}`;
   }
 
-  let day = date.getDate();
   if (day < 10) {
     day = `0${day}`;
   }
+
   dateParagraf.textContent = `${date.getFullYear()}-${month}-${day}`;
+}
+
+function initiateNewAlarmButton() {
+  newAlarmButton.addEventListener("click", () => {
+    alarmContainer.style.display = "block";
+    clockContainer.style.display = "none";
+    initiateExitAlarmButton();
+  });
+}
+
+function initiateExitAlarmButton() {
+  const exitAlarmButton = document.getElementById("exit-alarm-button");
+  exitAlarmButton.addEventListener("click", () => {
+    clockContainer.style.display = "block";
+    alarmContainer.style.display = "none";
+  });
 }
 
 function setTime() {
@@ -43,7 +84,7 @@ function setTime() {
 
   if (hour === 0 && minute === 0 && second === 0) {
     setDate();
-  } else if (minute === 59 && second > 49) {
+  } else if (second > 49) {
     transform();
   }
 }
@@ -51,21 +92,17 @@ function setTime() {
 //last ten seconds every hour the
 function transform() {
   let element = document.getElementById("container");
-  element.style.transition = "all 0.1s linear";
-  element.style.transform = "scale(1.0025)";
+  
   element.style.backgroundColor = "#f8cbc9";
-  element.style.top = "6.1vw";
 
   setTimeout(() => {
-    element.style.transform = "scale(1)";
-    element.style.backgroundColor = "#f4afab";
-    element.style.top = "6vw";
+    
+    element.style.backgroundColor = "#CDE3CA";
   }, 500);
-
-  element.style.backgroundColor = "#DAEAD7";
 }
 
 setDate();
 setTime();
+initiateNewAlarmButton();
 
 setInterval(setTime, 1000);
