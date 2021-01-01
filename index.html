@@ -17,6 +17,9 @@
       <button id="menu">
         <img src="/media/alarm.svg" alt="Menu button" title="Menu" />
       </button>
+      <button id="exit-alarm-button">
+        <img src="/media/x.svg" alt="Exit button" title="Exit" />
+      </button>
     </header>
     <main>
       <div id="container" class="clock-container">
@@ -28,14 +31,38 @@
         ><span id="second"></span>
       </div>
       <div id="alarm-container">
-        <button id="exit-alarm-button">
-          <img src="/media/x.svg" alt="Exit button" title="Exit" />
-        </button>
-
-        <div id="alarm-list-container">
-          <ul id="alarm-list"></ul>
+        <p>NEW ALARM</p>
+        <div class="input-container">
+          <form action="">
+            <input
+              class="alarm-input"
+              id="input-hour"
+              type="text"
+              min="0"
+              max="23"
+              placeholder="22"
+              maxlength="2"
+              minlength="1"
+              size="2"
+              autofocus
+            />:<input
+              class="alarm-input"
+              id="input-min"
+              type="text"
+              min="0"
+              max="59"
+              placeholder="22"
+              maxlength="2"
+              minlength="1"
+              size="2"
+              autofocus
+            />
+          </form>
         </div>
+
+        <div id="alarm-list-container"></div>
       </div>
+      <ul id="alarm-list"></ul>
     </main>
 
     <script src="index.js"></script>
