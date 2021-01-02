@@ -26,6 +26,7 @@ function initApp() {
   initiateNewAlarmButton();
   initiateExitAlarmButton();
   initiateSaveAlarmButton();
+  //initCheckInputKey();
 }
 
 function getDate() {
@@ -66,16 +67,17 @@ function returnToDashboard() {
   alarmContainer.style.opacity = "100%";
   exitAlarmButton.style.display = "none";
   newAlarmButton.style.display = "inline-block";
+  clearInput();
 }
 
 function initiateSaveAlarmButton() {
   saveAlarmButton.addEventListener("click", () => {
-    saveAlarmAnimation();
+    getInputValue();
   });
 }
 
 function saveAlarmAnimation() {
-  alarmContainer.style.backgroundColor = "#FADCDB";
+  alarmContainer.style.backgroundColor = "#B97979";
   alarmContainer.style.opacity = "70%";
 
   setTimeout(() => {
@@ -87,32 +89,86 @@ function saveAlarmAnimation() {
     placeholder.forEach((element) => {
       element.style.color = "white";
     });
-
-    returnToDashboard();
-    setTimeout(() => {
-      createAlarm();
-    }, 350);
   }, 300);
 }
 
-function createAlarm() {
-  alarms.push(new Alarm("22", "22"));
+function getInputValue() {
+  const hour = document.getElementById("input-hour").value;
+  const min = document.getElementById("input-min").value;
+
+  if (checkInputValue(hour, min)) {
+    saveAlarmAnimation();
+    setTimeout(() => {
+      createAlarm(hour, min);
+      returnToDashboard();
+    }, 300);
+  } else {
+    clearInput();
+  }
+}
+
+function checkInputValue(hour, min) {
+  if (hour === "" || min === "") {
+    return false;
+  } else if (isNaN(hour.valueOf()) || isNaN(min.valueOf())) {
+    return false;
+  } else if (hour > 23 || hour < 0 || min > 59 || min < 0) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function checkInput() {
+  if (isNaN(input.value)) {
+    clearInput();
+  }
+}
+
+/* function initCheckInputKey() {
+  const hour = document.getElementById("input-hour");
+  const min = document.getElementById("input-min");
+  const reg = new RegExp(/^\d+$/);
+  hour.addEventListener("keydown", (event) => {
+    if (event.target.valueOf() != reg) {
+      clearInput();
+    }
+  });
+  min.addEventListener("keydown", (event) => {
+    if (event.target.valueOf() != reg) {
+      clearInput();
+    }
+  });
+} */
+
+function clearInput() {
+  let inputs = document.querySelectorAll(".alarm-input");
+  inputs.forEach((input) => {
+    input.value = "";
+    input.style.color = "#3D3D3D";
+  });
+}
+
+function createAlarm(hour, min) {
+  alarms.push(new Alarm(hour, min));
   console.log(alarms);
   clearAlarmList();
-  uppdateAlarmList();
 }
 
 function clearAlarmList() {
   document.querySelectorAll(".alarm-list-item").forEach((e) => e.remove());
+  uppdateAlarmList();
 }
 
 function uppdateAlarmList() {
-  alarms.forEach((alarm) => {
-    if (alarm.delete === false) {
-      createAlarmElements(alarm);
-    } else if (alarm.delete === false) {
+  for (let i = 0; i < alarms.length; i++) {
+    if (alarms[i].delete === true) {
+      alarms.splice(i, 1);
+      clearAlarmList();
+    } else if (alarms[i].delete === false) {
+      createAlarmElements(alarms[i]);
     }
-  });
+  }
 }
 
 function createAlarmElements(obj) {
@@ -148,10 +204,19 @@ function createActiveButtonImg() {
 }
 
 function createDeleteAlarmButton(obj) {
-  const deleteButton = document.createElement("button");
+  let deleteButton = document.createElement("button");
   deleteButton.className = "alarm-button";
   deleteButton.appendChild(createDeleteAlarmButtonImg());
+  initDeleteAlarmButton(deleteButton, obj);
   return deleteButton;
+}
+
+function initDeleteAlarmButton(deleteButton, obj) {
+  deleteButton.addEventListener("click", () => {
+    obj.delete = true;
+    clearAlarmList();
+    console.log(obj);
+  });
 }
 
 function createDeleteAlarmButtonImg() {
@@ -194,7 +259,7 @@ function transform() {
   element.style.backgroundColor = "#f8cbc9";
 
   setTimeout(() => {
-    element.style.backgroundColor = "#CDE3CA";
+    element.style.backgroundColor = "#F1F5F9";
   }, 500);
 }
 
