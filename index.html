@@ -32,8 +32,8 @@
       </div>
       <div id="alarm-container">
         <p>NEW ALARM</p>
-        <div class="input-container">
-          <form action="">
+        <form action="">
+          <div class="input-container">
             <input
               class="alarm-input"
               id="input-hour"
@@ -44,7 +44,10 @@
               maxlength="2"
               minlength="1"
               size="2"
-              autofocus
+              pattern="[0-9]"
+              autocomplete="off"
+              required
+              
             />:<input
               class="alarm-input"
               id="input-min"
@@ -55,14 +58,29 @@
               maxlength="2"
               minlength="1"
               size="2"
-              autofocus
+              pattern="[0-9]"
+              required
+              autocomplete="off"
+              
+              
             />
-          </form>
-        </div>
+          </div>
+          <button  type="submit" id="save-alarm-button">
+            <img
+              src="/media/check.svg"
+              alt="Save alarm button"
+              title="Save Alarm"
+            />
+          </button>
 
-        <div id="alarm-list-container"></div>
+        </form>
+        
       </div>
-      <ul id="alarm-list"></ul>
+      <div class="alarm-container">
+        <div id="alarm-list-container"><h3 class="alarm-list-header">ALARMS</h3><ul id="alarm-list"></ul></div>
+
+      </div>
+      
     </main>
 
     <script src="index.js"></script>
