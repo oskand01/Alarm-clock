@@ -3,7 +3,7 @@
 const hoursSpan = document.getElementById("hour");
 const minutesSpan = document.getElementById("minute");
 const secondsSpan = document.getElementById("second");
-const dateParagraf = document.getElementById("date");
+
 const alarmContainer = document.getElementById("alarm-container");
 const clockContainer = document.querySelector(".clock-container");
 const newAlarmButton = document.getElementById("menu");
@@ -21,8 +21,9 @@ function Alarm(hour, minute) {
 }
 
 function initApp() {
-  dateParagraf.textContent = getDate();
+  document.getElementById("date").textContent = getDate();
   setTime();
+  uppdateAlarmList();
   initiateNewAlarmButton();
   initiateExitAlarmButton();
   initiateSaveAlarmButton();
@@ -72,12 +73,13 @@ function returnToDashboard() {
 
 function initiateSaveAlarmButton() {
   saveAlarmButton.addEventListener("click", () => {
+    
     getInputValue();
   });
 }
 
 function saveAlarmAnimation() {
-  alarmContainer.style.backgroundColor = "#B97979";
+  alarmContainer.style.backgroundColor = "#C0DCBC";
   alarmContainer.style.opacity = "70%";
 
   setTimeout(() => {
@@ -101,7 +103,7 @@ function getInputValue() {
     setTimeout(() => {
       createAlarm(hour, min);
       returnToDashboard();
-    }, 300);
+    }, 400);
   } else {
     clearInput();
   }
@@ -161,14 +163,23 @@ function clearAlarmList() {
 }
 
 function uppdateAlarmList() {
-  for (let i = 0; i < alarms.length; i++) {
-    if (alarms[i].delete === true) {
-      alarms.splice(i, 1);
-      clearAlarmList();
-    } else if (alarms[i].delete === false) {
-      createAlarmElements(alarms[i]);
-    }
+  const alarmListContainer = document.getElementById("alarm-list-container");
+  if (alarms.length < 1) {
+    alarmListContainer.style.display = "none";
   }
+  else {
+    alarmListContainer.style.display = "block";
+    for (let i = 0; i < alarms.length; i++) {
+      if (alarms[i].delete === true) {
+        alarms.splice(i, 1);
+        clearAlarmList();
+      } else if (alarms[i].delete === false) {
+        createAlarmElements(alarms[i]);
+      }
+    }
+
+  }
+  
 }
 
 function createAlarmElements(obj) {
@@ -177,7 +188,13 @@ function createAlarmElements(obj) {
 
 function createAlarmListItem(obj) {
   const alarmListItem = document.createElement("li");
-  alarmListItem.className = "alarm-list-item";
+  if (obj.active) {
+    alarmListItem.className = "alarm-list-item";
+  }
+  else {
+    alarmListItem.className = "alarm-list-item alarm-list-item-inactive";
+  }
+  
   alarmListItem.appendChild(createActiveButton(obj));
   alarmListItem.appendChild(createAlarmHeader(obj));
   alarmListItem.appendChild(createDeleteAlarmButton(obj));
@@ -190,16 +207,37 @@ function createAlarmHeader(obj) {
   return alarmHeader;
 }
 
-function createActiveButton() {
+function createActiveButton(obj) {
   const activeButton = document.createElement("button");
   activeButton.className = "alarm-button";
-  activeButton.appendChild(createActiveButtonImg());
+  activeButton.appendChild(createActiveButtonImg(obj));
+  initActiveButton(activeButton, obj)
   return activeButton;
 }
 
-function createActiveButtonImg() {
+function initActiveButton(activeButton, obj) {
+  activeButton.addEventListener("click", () => {
+    if (obj.active) {
+      obj.active = false;
+      activeButton.childNodes[0].src = "/media/alarm.svg";
+      activeButton.parentNode.className = "alarm-list-item alarm-list-item-inactive";
+    }
+    else {
+      obj.active = true;
+      activeButton.childNodes[0].src = "/media/alarm-fill.svg";
+      activeButton.parentNode.className = "alarm-list-item";
+    }
+  })
+}
+
+function createActiveButtonImg(obj) {
   const activeImg = document.createElement("img");
+  if (obj.active === true) {
   activeImg.src = "/media/alarm-fill.svg";
+  }
+  else {
+    activeImg.src = "/media/alarm.svg";
+  }
   return activeImg;
 }
 
@@ -215,7 +253,6 @@ function initDeleteAlarmButton(deleteButton, obj) {
   deleteButton.addEventListener("click", () => {
     obj.delete = true;
     clearAlarmList();
-    console.log(obj);
   });
 }
 
@@ -227,32 +264,46 @@ function createDeleteAlarmButtonImg() {
 
 function setTime() {
   const time = new Date();
-  const hour = time.getHours();
-  const minute = time.getMinutes();
-  const second = time.getSeconds();
+  let hour = time.getHours();
+  let minute = time.getMinutes();
+  let second = time.getSeconds();
+  if (hour < 10) {
+    hour = `0${hour}`;
+  }
+
+  if (minute < 10) {
+    minute = `0${minute}`;
+  }
+
+  if (second < 10) {
+    second = `0${second}`;
+  }
 
   hoursSpan.textContent = `${hour}:`;
-  if (hour < 10) {
-    hoursSpan.textContent = `0${hour}:`;
-  }
-
   minutesSpan.textContent = `${minute}:`;
-  if (minute < 10) {
-    minutesSpan.textContent = `0${minute}:`;
-  }
-
   secondsSpan.textContent = `${second}`;
-  if (second < 10) {
-    secondsSpan.textContent = `0${second}`;
-  }
 
-  if (hour === 0 && minute === 0 && second === 0) {
-    dateParagraf.textContent = getDate();
-  } else if (hour === 23 && minute === 59 && second > 49) {
-    transform();
+  if (hour === "00" && minute === "00" && second === "00") {
+    document.getElementById("date").textContent = getDate();
+  }
+  if (second === "00") {
+    const alarmCheck = `${hour}:${minute}`;
+
+    if (checkAlarm(alarmCheck)) {
+      console.log(alarmCheck);
+      transform();
+    }
   }
 }
 
+function checkAlarm(alarmCheck) {
+  for (let i = 0; i < alarms.length; i++) {
+    if (alarms[i].alarmTime === alarmCheck) {
+      return true;
+    }
+  }
+  return false;
+}
 //last ten seconds every hour the
 function transform() {
   let element = document.getElementById("container");
