@@ -12,65 +12,54 @@
     <title>Alarmify</title>
   </head>
   <body>
-    <div>
+    <div id="main-container">
       <header>
-        <h1 id="logo">ALARMIFY</h1>
-        <button id="menu">
-          <img src="/media/alarm.svg" alt="Menu button" title="Menu" />
-        </button>
-        <button id="exit-alarm-button">
-          <img src="/media/x.svg" alt="Exit button" title="Exit" />
-        </button>
+        <div class="header-container">
+          <h1 id="logo">ALARMIFY</h1>
+
+        </div>
+        <div class="header-container">
+          <p id="date"></p>
+
+        </div>
+        <div class="header-container">
+          <button id="menu">
+            <img src="/media/alarm.svg" alt="Menu button" title="Menu" />
+          </button>
+          <button id="exit-alarm-button">
+            <img src="/media/x.svg" alt="Exit button" title="Exit" />
+          </button>
+
+        </div>
+        
+        
+        
       </header>
       <main>
         <div id="container" class="clock-container">
           <div id="clock-menu">
-            <p id="date"></p>
+            
           </div>
 
           <span id="hour"></span><span id="minute"></span
-          ><span id="second"></span>
+          ><!--<span id="second"></span>-->
         </div>
         <div id="alarm-container">
-          <p>NEW ALARM</p>
-          <form action="">
-            <div class="input-container">
-              <input
-                class="alarm-input"
-                id="input-hour"
-                type="number"
-                min="0"
-                max="23"
-                placeholder="22"
-                maxlength="2"
-                minlength="1"
-                size="2"
-                pattern="[0-9]"
-                autocomplete="off"
-                required
-              />:<input
-                class="alarm-input"
-                id="input-min"
-                type="text"
-                min="0"
-                max="59"
-                placeholder="22"
-                maxlength="2"
-                minlength="1"
-                size="2"
-                pattern="[0-9]"
-                required
-                autocomplete="off"
-              />
-            </div>
-            <button type="submit" id="save-alarm-button">
-              <img
-                src="/media/check.svg"
-                alt="Save alarm button"
-                title="Save Alarm"
-              />
-            </button>
-          </form>
+          <p class ="alarm-header">NEW ALARM</p>
+
+          <div class="input-container">
+            <span id="alarm-hour"></span>
+            <ul class="input-list" id="hour-list"></ul>
+            : <span id="alarm-min"></span>
+            <ul class="input-list" id="min-list"></ul>
+          </div>
+          <button id="save-alarm-button">
+            <img
+              src="/media/check.svg"
+              alt="Save alarm button"
+              title="Save Alarm"
+            />
+          </button>
         </div>
       </main>
     </div>
@@ -86,9 +75,9 @@
         <a href="mailto:oskand01@gmail.com"
           ><img src="/media//envelope-fill.svg" alt="email"
         /></a>
-        <a href="tel:+46739685132"
+        <!-- <a href="tel:+46739685132"
           ><img src="/media/telephone-fill.svg" alt="phone number"
-        /></a>
+        /></a> -->
         <a
           href="https://www.linkedin.com/in/oskar-andersson-7b486246"
           target="_blank"
@@ -99,6 +88,7 @@
         /></a>
       </address>
     </footer>
+    <!-- <script src="https://oskand01.github.io/oskand01.github.io/index.js"></script> -->
 
     <script src="index.js"></script>
   </body>
