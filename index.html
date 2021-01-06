@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <link id="style-sheet" rel="stylesheet" href="style.css" />
+    <title>Alarmify</title>
+  </head>
+  <body>
+    <div id="main-container">
+      <header>
+        <div class="header-container">
+          <h1 id="logo">ALARMIFY</h1>
+        </div>
+        <div class="header-container">
+          <p id="date"></p>
+        </div>
+        <div class="header-container">
+          <button id="menu">
+            <img src="/media/alarm.svg" alt="Menu button" title="Menu" />
+          </button>
+          <button id="exit-alarm-button">
+            <img src="/media/x.svg" alt="Exit button" title="Exit" />
+          </button>
+        </div>
+      </header>
+      <main>
+        <div id="container" class="clock-container">
+          <span id="hour"></span><p id="time-divider">:</p><span id="minute"></span
+          ><!--<span id="second"></span>-->
+        </div>
+        <div id="alarm-container">
+          <!-- <p class ="alarm-header">NEW ALARM</p> -->
+
+          <div class="input-container">
+            <span class="button-container"><img class="arrow" src="/media/chevron-up.svg" alt="up"><img class="arrow" src="/media/chevron-down.svg" alt="down"></span>
+            <span id="alarm-hour"></span>
+            <ul class="input-list" id="hour-list"></ul>
+            : <span id="alarm-min"></span>
+            <ul class="input-list" id="min-list"></ul><span class="button-container"><img class="arrow" src="/media/chevron-up.svg" alt="up"><img class="arrow" src="/media/chevron-down.svg" alt="down"></span>
+          </div>
+          <button id="save-alarm-button">
+            <img
+              src="/media/check.svg"
+              alt="Save alarm button"
+              title="Save Alarm"
+            />
+          </button>
+          
+        </div>
+        
+      </main>
+    </div>
+
+    <div class="alarm-container">
+      <div id="alarm-list-container">
+        <h3 class="alarm-list-header"></h3>
+        <ul id="alarm-list"></ul>
+      </div>
+    </div>
+    <footer>
+      <address>
+        <a href="mailto:oskand01@gmail.com"
+          ><img src="/media//envelope-fill.svg" alt="email"
+        /></a>
+        <!-- <a href="tel:+46739685132"
+          ><img src="/media/telephone-fill.svg" alt="phone number"
+        /></a> -->
+        <a
+          href="https://www.linkedin.com/in/oskar-andersson-7b486246"
+          target="_blank"
+          ><img src="/media/linkedin.svg" alt="linkedin"
+        /></a>
+        <a href="https://github.com/oskand01" target="_blank"
+          ><img src="/media/github.svg" alt="github"
+        /></a>
+      </address>
+    </footer>
+    <!-- <script src="https://oskand01.github.io/oskand01.github.io/index.js"></script> -->
+
+    <script src="index.js"></script>
+  </body>
+</html>
