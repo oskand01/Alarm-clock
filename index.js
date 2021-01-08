@@ -55,15 +55,15 @@ function checkDevice() {
 }
 
 //Stolen from w3 schools: https://www.w3schools.com/jsref/met_element_requestfullscreen.asp
-function openFullscreen() {
+/* function openFullscreen() {
   const body = document.body;
   if (body.requestFullscreen) {
     body.requestFullscreen();
   } else if (body.webkitRequestFullscreen) {
-    /* Safari */
+    
     body.webkitRequestFullscreen();
   } else if (body.msRequestFullscreen) {
-    /* IE11 */
+    
     body.msRequestFullscreen();
   }
   body.removeEventListener("click", openFullscreen);
@@ -74,14 +74,14 @@ function closeFullscreen() {
   if (body.exitFullscreen) {
     body.exitFullscreen();
   } else if (body.webkitExitFullscreen) {
-    /* Safari */
+    
     body.webkitExitFullscreen();
   } else if (body.mozCancelFullscreen) {
-    /* IE11 */
+    
     body.mozCancelFullscreen();
   }
   body.removeEventListener("click", closeFullscreen);
-}
+} */
 
 function getDate() {
   const date = new Date();
@@ -104,13 +104,34 @@ function initiateNewAlarmButton() {
     alarmContainer.style.display = "block";
     clockContainer.style.display = "none";
     newAlarmButton.style.display = "none";
-    exitAlarmButton.style.display = "inline-block";
-    saveAlarmButton.style.display = "inline-block";
+    exitAlarmButton.style.display = "inline-block"
+    
+    
 
     fillSelectHour();
     fillSelectMinute();
     setAlarmListFocus();
+    scrollAnimation();
   });
+}
+
+function scrollAnimation() {
+  const arrows = document.querySelectorAll(".arrow");
+
+  arrows.forEach((arrow) => {
+    arrow.style.marginBottom = "5vw";
+    arrow.style.marginTop = "5vw";
+    arrow.style.opacity = "100%";
+    arrow.style.transform = "scale(1.8)";
+  });
+  setTimeout(() => {
+    arrows.forEach((arrow) => {
+      arrow.style.marginBottom = "1vw";
+      arrow.style.marginTop = "1vw";
+      arrow.style.opacity = "70%";
+      arrow.style.transform = "scale(1)";
+    });
+  }, 500);
 }
 
 function setAlarmListFocus() {
@@ -120,7 +141,19 @@ function setAlarmListFocus() {
 
   listMins[currentTime.getMinutes() + 60].focus();
   listHours[currentTime.getHours() + 24].focus();
+  //scrollAlarmList(currentTime.getHours() + 24, currentTime.getMinutes() + 60);
 }
+
+/* function scrollAlarmList(hourIndex, minIndex) {
+  let listHours = document.querySelectorAll(".hour-option");
+  let listMins = document.querySelectorAll(".min-option");
+  let hourList = document.getElementById("hour-list");
+  let minList = document.getElementById("min-list");
+
+  minList.onscroll = () => {
+    listMins[minIndex + 10].scrollIntoView();
+  };
+} */
 
 function newAlarmButtonFocus() {
   newAlarmButton.style.transition = "0.5s";
@@ -129,7 +162,7 @@ function newAlarmButtonFocus() {
   setTimeout(() => {
     newAlarmButton.style.transform = "scale(1)";
     newAlarmButton.style.transition = "0.3s";
-    newAlarmButton.style.marginRight = "1rem";
+    newAlarmButton.style.marginRight = "2vw";
     newAlarmButton.focus();
   }, 500);
 }
@@ -158,9 +191,12 @@ function createHourOption(i) {
   }
 
   hourOption.addEventListener("click", (event) => {
+    document.querySelector(".left").style.display = "none";
     hourSelected.textContent = event.target.textContent;
     document.getElementById("hour-list").style.display = "none";
     hourSelected.style.display = "inline-block";
+    initSelectedAlarmTime(hourSelected);
+    checkAlarmSelected();
   });
   return hourOption;
 }
@@ -190,11 +226,42 @@ function createMinOption(i) {
   }
 
   minOption.addEventListener("click", (event) => {
+    document.querySelector(".right").style.display = "none";
     minSelected.textContent = event.target.textContent;
     document.getElementById("min-list").style.display = "none";
     minSelected.style.display = "inline-block";
+    initSelectedAlarmTime(minSelected);
+    checkAlarmSelected();
   });
   return minOption;
+}
+
+function checkAlarmSelected() {
+  if(document.getElementById("alarm-min").style.display === "inline-block" && document.getElementById("alarm-hour").style.display === "inline-block") {
+    saveAlarmButton.style.display = "inline-block";
+  }
+  else {
+    saveAlarmButton.style.display = "none";
+  }
+
+
+}
+
+
+function initSelectedAlarmTime(element) {
+  element.addEventListener("click", () => {
+    element.style.display = "none";
+    resetAlarmInput();
+    
+    /* if (document.getElementById("min-list").style.display === "none") {
+      document.getElementById("min-list").style.display = "block";
+      document.querySelector(".right").style.display = "flex";
+    } 
+    else if (document.getElementById("hour-list").style.display === "none") {
+      document.getElementById("hour-list").style.display = "block";
+      document.querySelector(".left").style.display = "flex";
+    } */
+  },);
 }
 
 function initiateExitAlarmButton() {
@@ -236,6 +303,9 @@ function resetAlarmInput() {
   document.getElementById("alarm-container").style.backgroundColor = "#E4F1E4";
   document.getElementById("alarm-min").style.color = "#3D3D3D";
   document.getElementById("alarm-hour").style.color = "#3D3D3D";
+  document.querySelector(".right").style.display = "flex";
+  document.querySelector(".left").style.display = "flex";
+  saveAlarmButton.style.display = "none";
 }
 
 function saveAlarmAnimation() {
@@ -405,19 +475,13 @@ function setTime() {
     const alarmCheck = `${hour}:${minute}`;
 
     if (checkAlarm(alarmCheck)) {
-      console.log("Alarm!")
+      console.log("Alarm!");
       const alarmTimer = setInterval(hornAlarm, 1000);
       clockContainer.addEventListener("click", () => {
         clearInterval(alarmTimer);
         clockContainer.style.boxShadow = "initial";
-
       });
-
-      
-      //
     }
-
-    
   }
 }
 
@@ -431,16 +495,14 @@ function checkAlarm(alarmCheck) {
 }
 //last ten seconds every hour the
 function hornAlarm() {
-  const audio = new Audio("/media/mjaularm.mp3");
+  const audio = new Audio("/media/mjaularm3.mp3");
   audio.play();
-  clockContainer.style.boxShadow = "rgba(0, 0, 0, 0.1) 0px 4px 12px"
-  
+  clockContainer.style.boxShadow = "rgba(0, 0, 0, 0.1) 0px 4px 12px";
 
   clockContainer.style.backgroundColor = "#f8cbc9";
   setTimeout(() => {
     clockContainer.style.backgroundColor = "#E2EBF3";
   }, 500);
-  
 }
 
 window.addEventListener("DOMContentLoaded", () => {

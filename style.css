@@ -9,6 +9,7 @@
 html {
   background-color: white;
   max-height: fit-content;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -16,7 +17,11 @@ body {
   color: #0a0a0a;
   background-color: #f8f1f1;
   margin: 0 auto;
-}
+  scroll-behavior: smooth;
+  
+} 
+
+
 
 /*body::-webkit-scrollbar {
   display: none;
@@ -212,7 +217,9 @@ input:focus {
   color: #3D3D3D;
   padding-top: 2vw;
   margin-right: 2vw;
-  margin-left: 2vw;
+  margin-left: 4vw;
+  width: 35vw;
+  text-align: right;
   
  }
  
@@ -223,7 +230,9 @@ input:focus {
    color: #3D3D3D;
    padding-top: 2vw;
    margin-left: 2vw;
-   margin-right: 2vw;
+   margin-right: 4vw;
+   width: 35vw;
+   text-align: left;
 
  }
 
@@ -236,7 +245,7 @@ input:focus {
   color: #3D3D3D;
   align-self: center;
   height: 100%;
-  height: 30vw;
+  height: 35vw;
   padding: 3vw 0vw;
   
 }
@@ -245,12 +254,23 @@ input:focus {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-top: 4vw;
+  margin-top: 3vw;
   transition: 0.3s;
+  
   
 }
 
-.button-container img {
+.left {
+  position: relative;
+  left: 7vw;
+}
+
+.right {
+  position: relative;
+  right: 7vw;
+}
+
+.arrow {
   width: 2.5vw;
   transition: 0.5s;
   margin: 1vw 1vw;
@@ -258,8 +278,9 @@ input:focus {
 }
 
 .input-list {
-  height: 24vw;
+  height: 26vw;
   overflow: scroll;
+  
   list-style: none;
   margin-left: 1vw;
   margin-right: 1vw;
@@ -278,7 +299,8 @@ input:focus {
 .alarm-option {
   transition: 0.2s;
   color: #666666;
-  height: 100%;
+  height: 26vw;
+  width: 35vw;
   
   
   
@@ -293,7 +315,14 @@ input:focus {
   outline: none;
 }
 
+.hour-option {
+  text-align: right;
 
+}
+
+.min-option{
+  text-align: left;
+}
 
 
 
@@ -309,7 +338,7 @@ input:focus {
   
 
   padding: 4vw;
-  overflow: scroll;
+  
 
   
   
@@ -323,7 +352,7 @@ input:focus {
   max-height: 60vh;
 
   padding: 4vw 4vw 0vw;
-  overflow: hidden;
+  overflow: scroll;
 }
 
 #alarm-list-container h3 {
@@ -335,6 +364,7 @@ input:focus {
   font-weight: 200;
   padding-bottom: 2vw;
   color: #0A0A0A;
+  overflow: hidden;
 }
 
 #alarm-list {
@@ -370,13 +400,14 @@ input:focus {
 }
 
 #save-alarm-button {
+  display: none;
   background-color: transparent;
   margin-left: auto;
   margin-right: 10vw;
   padding: 0;
   position: relative;
-  left: 48vw;
-  bottom: 5vw;
+  left: 47vw;
+  bottom: 10vw;
 
   border: none;
   opacity: 50%;
@@ -412,6 +443,12 @@ input:focus {
   border-radius: 0.4rem;
   color: #666666;
   transition: 0.3s;
+}
+
+.alarm-list-item:nth-child(odd) {
+  background-color: #E4F1E4;
+  
+  box-shadow: #d7ead7 0vw 0.4vw 0.8vw 0vw inset;
 }
 
 .alarm-list-item h5 {
