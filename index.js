@@ -42,7 +42,7 @@ function checkDevice() {
         document.body.addEventListener("click", closeFullscreen);
         
       } */
-      document.getElementById("style-sheet").href = "desktop-style.css";
+      document.getElementById("style-sheet").href = "style-desktop.css";
     } else {
       //document.body.addEventListener("click", openFullscreen)
       document.getElementById("style-sheet").href = "style.css";
@@ -104,9 +104,7 @@ function initiateNewAlarmButton() {
     alarmContainer.style.display = "block";
     clockContainer.style.display = "none";
     newAlarmButton.style.display = "none";
-    exitAlarmButton.style.display = "inline-block"
-    
-    
+    exitAlarmButton.style.display = "inline-block";
 
     fillSelectHour();
     fillSelectMinute();
@@ -192,9 +190,14 @@ function createHourOption(i) {
 
   hourOption.addEventListener("click", (event) => {
     document.querySelector(".left").style.display = "none";
+    event.target.scrollIntoView();
     hourSelected.textContent = event.target.textContent;
+
     document.getElementById("hour-list").style.display = "none";
     hourSelected.style.display = "inline-block";
+
+    console.log(event.target.textContent.valueOf());
+
     initSelectedAlarmTime(hourSelected);
     checkAlarmSelected();
   });
@@ -203,10 +206,11 @@ function createHourOption(i) {
 
 function fillSelectMinute() {
   let x = 0;
+  const minList = document.getElementById("min-list");
 
   while (x < 2) {
     for (let i = 0; i < 60; i++) {
-      document.getElementById("min-list").appendChild(createMinOption(i));
+      minList.appendChild(createMinOption(i));
     }
     x++;
   }
@@ -226,33 +230,38 @@ function createMinOption(i) {
   }
 
   minOption.addEventListener("click", (event) => {
+    event.target.scrollIntoView();
+
     document.querySelector(".right").style.display = "none";
     minSelected.textContent = event.target.textContent;
+
     document.getElementById("min-list").style.display = "none";
     minSelected.style.display = "inline-block";
+
     initSelectedAlarmTime(minSelected);
     checkAlarmSelected();
+
+    console.log(event.target.textContent.valueOf());
   });
   return minOption;
 }
 
 function checkAlarmSelected() {
-  if(document.getElementById("alarm-min").style.display === "inline-block" && document.getElementById("alarm-hour").style.display === "inline-block") {
+  if (
+    document.getElementById("alarm-min").style.display === "inline-block" &&
+    document.getElementById("alarm-hour").style.display === "inline-block"
+  ) {
     saveAlarmButton.style.display = "inline-block";
-  }
-  else {
+  } else {
     saveAlarmButton.style.display = "none";
   }
-
-
 }
-
 
 function initSelectedAlarmTime(element) {
   element.addEventListener("click", () => {
     element.style.display = "none";
     resetAlarmInput();
-    
+
     /* if (document.getElementById("min-list").style.display === "none") {
       document.getElementById("min-list").style.display = "block";
       document.querySelector(".right").style.display = "flex";
@@ -261,7 +270,7 @@ function initSelectedAlarmTime(element) {
       document.getElementById("hour-list").style.display = "block";
       document.querySelector(".left").style.display = "flex";
     } */
-  },);
+  });
 }
 
 function initiateExitAlarmButton() {
@@ -372,8 +381,20 @@ function uppdateAlarmList() {
 
 function createAlarmElements() {
   const alarmList = document.getElementById("alarm-list");
+
   for (let i = 0; i < alarms.length; i++) {
     alarmList.prepend(createAlarmListItem(alarms[i]));
+    alarmList.childNodes[0].style.transform = "scale(0.1)";
+    setTimeout(() => {
+      alarmList.childNodes.forEach((alarmItem) => {
+        setTimeout(() => {
+          alarmItem.style.transform = "scale(1)";
+
+        }, 1)
+        
+
+      }) 
+    }, 50);
   }
 }
 
@@ -388,6 +409,7 @@ function createAlarmListItem(obj) {
   alarmListItem.appendChild(createActiveButton(obj));
   alarmListItem.appendChild(createAlarmHeader(obj));
   alarmListItem.appendChild(createDeleteAlarmButton(obj));
+  alarmListItem.style.transform = "scale(1)";
   return alarmListItem;
 }
 
@@ -476,6 +498,7 @@ function setTime() {
 
     if (checkAlarm(alarmCheck)) {
       console.log("Alarm!");
+      returnToDashboard();
       const alarmTimer = setInterval(hornAlarm, 1000);
       clockContainer.addEventListener("click", () => {
         clearInterval(alarmTimer);

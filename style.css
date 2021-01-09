@@ -329,6 +329,7 @@ input:focus {
 
 .alarm-container {
   background-color: #f8f1f1;
+  height: 100%;
  
 
   width: 100%;
@@ -349,7 +350,7 @@ input:focus {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto 0;
-  max-height: 60vh;
+  max-height: 63vh;
 
   padding: 4vw 4vw 0vw;
   overflow: scroll;
@@ -368,7 +369,7 @@ input:focus {
 }
 
 #alarm-list {
-  max-height: 55vh;
+  height: 100%;
   overflow: scroll;
 }
 
@@ -434,22 +435,34 @@ input:focus {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #fadcdb;
   min-height: 3vw;
   margin-top: 4vw;
   padding: 2vw;
   padding-left: 3vw;
-  box-shadow: #f8cbc9 0vw 0.4vw 0.8vw 0vw inset;
   border-radius: 0.4rem;
   color: #666666;
-  transition: 0.3s;
+  transition: 0.5s;
+  background-color: #fadcdb;
+  box-shadow: #f8cbc9 0vw 0.4vw 0.8vw 0vw inset;
+  transform: scale(0.1);
+  
 }
 
-.alarm-list-item:nth-child(odd) {
-  background-color: #E4F1E4;
-  
-  box-shadow: #d7ead7 0vw 0.4vw 0.8vw 0vw inset;
+.alarm-list-item:nth-child(3n+2) {
+  background-color: #FFF3D6;
+  box-shadow: #FFEDC2 0vw 0.4vw 0.8vw 0vw inset;
+
 }
+
+.alarm-list-item:nth-child(3n+3) {
+  background-color: #E4F1E4;
+  box-shadow: #d7ead7 0vw 0.4vw 0.8vw 0vw inset;
+  
+}
+
+
+
+
 
 .alarm-list-item h5 {
   font-size: 6vw;
