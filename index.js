@@ -518,7 +518,7 @@ function checkAlarm(alarmCheck) {
 }
 //last ten seconds every hour the
 function hornAlarm() {
-  const audio = new Audio("/media/mjaularm3.mp3");
+  const audio = new Audio("/media/mjauLarm4.mp3");
   audio.play();
   clockContainer.style.boxShadow = "rgba(0, 0, 0, 0.1) 0px 4px 12px";
 
