@@ -208,14 +208,18 @@ function getListScroll() {
 
   hourHolder.addEventListener("scroll", () => {
     console.log(hourHolder.scrollTop);
-    if (hourListHeight < hourHolder.scrollTop + (optionHeight / 2)) {
+    if (hourListHeight < hourHolder.scrollTop + optionHeight / 2) {
       hourHolder.scrollTop /= 2;
+    } else if (hourHolder.scrollTop === 0) {
+      hourHolder.scrollTop += (hourListHeight / 2) + optionHeight / 2;
     }
   });
 
   minHolder.addEventListener("scroll", () => {
-    if (minListHeight < minHolder.scrollTop + (optionHeight / 2)) {
+    if (minListHeight < minHolder.scrollTop + optionHeight / 2) {
       minHolder.scrollTop /= 2;
+    } else if (minHolder.scrollTop === 0) {
+      minHolder.scrollTop += (minListHeight / 2) + optionHeight / 2;
     }
   });
 }
