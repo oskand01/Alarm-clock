@@ -39,10 +39,6 @@ function checkDevice() {
   document.body.style.minHeight = "100vh";
   document.body.style.maxWidth = "100vw";
 
-  if (document.querySelectorAll(".alarm-option")[0] !== undefined) {
-    setListItemHeight();
-  }
-
   let w;
   let h;
 
@@ -54,14 +50,19 @@ function checkDevice() {
     h = document.documentElement.clientHeight;
   }
   if (w > h) {
-    /* if(document.body.fullscreenElement != null) {
-      document.body.addEventListener("click", closeFullscreen);
-      
-    } */
     document.getElementById("style-sheet").href = "style-desktop.css";
+    window.addEventListener("DOMContentLoaded", () => {
+      if (document.querySelectorAll(".alarm-option")[0] !== undefined) {
+        setListItemHeight();
+      }
+    });
   } else {
-    //document.body.addEventListener("click", openFullscreen)
     document.getElementById("style-sheet").href = "style.css";
+    window.addEventListener("DOMContentLoaded", () => {
+      if (document.querySelectorAll(".alarm-option")[0] !== undefined) {
+        setListItemHeight();
+      }
+    });
   }
 }
 
@@ -400,7 +401,7 @@ function createAlarmListItem(obj) {
     setTimeout(() => {
       alarmListItem.style.transform = "scale(1)";
       obj.isNew = false;
-    }, 100);
+    }, 200);
   }
 
   alarmListItem.appendChild(createActiveButton(obj));
@@ -495,10 +496,13 @@ function setTime() {
 
     if (checkAlarm(alarmCheck)) {
       returnToDashboard();
+      newAlarmButton.style.display = "none";
       const alarmTimer = setInterval(hornAlarm, 1000);
       clockContainer.addEventListener("click", () => {
         clearInterval(alarmTimer);
         clockContainer.style.boxShadow = "initial";
+        newAlarmButton.style.display = "initial";
+
       });
     }
   }
