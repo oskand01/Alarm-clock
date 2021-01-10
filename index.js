@@ -140,6 +140,33 @@ function newAlarmButtonFocus() {
   }, 500);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Här börjar skapandet av listan
 function fillSelectHour() {
   let x = 0;
   let hourList = document.getElementById("hour-list");
@@ -186,44 +213,6 @@ function fillSelectMinute() {
   }
 }
 
-function setListItemHeight() {
-  let options = document.querySelectorAll(".alarm-option");
-  let optionHeight = options[0].offsetHeight;
-  options.forEach((option) => {
-    option.style.height = `${optionHeight}px`;
-    option.style.minHeight = `${optionHeight}px`;
-    option.style.maxHeight = `${optionHeight}px`;
-  });
-}
-
-function getListScroll() {
-  const hourHolder = document.getElementById("hour-list");
-  const minHolder = document.getElementById("min-list");
-  let options = document.querySelectorAll(".alarm-option");
-  let optionHeight = options[0].offsetHeight;
-  let hourListHeight = optionHeight * 47;
-
-  let minListHeight = optionHeight * 119;
-  console.log(optionHeight, hourListHeight);
-
-  hourHolder.addEventListener("scroll", () => {
-    console.log(hourHolder.scrollTop);
-    if (hourListHeight < hourHolder.scrollTop + optionHeight / 2) {
-      hourHolder.scrollTop /= 2;
-    } else if (hourHolder.scrollTop === 0) {
-      hourHolder.scrollTop += (hourListHeight / 2) + optionHeight / 2;
-    }
-  });
-
-  minHolder.addEventListener("scroll", () => {
-    if (minListHeight < minHolder.scrollTop + optionHeight / 2) {
-      minHolder.scrollTop /= 2;
-    } else if (minHolder.scrollTop === 0) {
-      minHolder.scrollTop += (minListHeight / 2) + optionHeight / 2;
-    }
-  });
-}
-
 function createMinOption(minList, i) {
   const minOption = document.createElement("li");
   const minSelected = document.getElementById("alarm-min");
@@ -250,6 +239,45 @@ function createMinOption(minList, i) {
     checkAlarmSelected();
   });
   return minOption;
+}
+
+
+function setListItemHeight() {
+  let options = document.querySelectorAll(".alarm-option");
+  let optionHeight = options[0].offsetHeight;
+  options.forEach((option) => {
+    option.style.height = `${optionHeight}px`;
+    option.style.minHeight = `${optionHeight}px`;
+    option.style.maxHeight = `${optionHeight}px`;
+  });
+}
+
+function getListScroll() {
+  const hourHolder = document.getElementById("hour-list");
+  const minHolder = document.getElementById("min-list");
+  let options = document.querySelectorAll(".alarm-option");
+  let optionHeight = options[0].offsetHeight;
+  let hourListHeight = optionHeight * 47;
+  let minListHeight = optionHeight * 119;
+  console.log(optionHeight, minListHeight);
+
+  hourHolder.addEventListener("scroll", () => {
+    console.log(hourHolder.scrollTop);
+    if (hourListHeight < hourHolder.scrollTop) {
+      hourHolder.scrollTop = (hourListHeight / 2) - (optionHeight / 2);
+    } else if (hourHolder.scrollTop === 0) {
+      hourHolder.scrollTop = (hourListHeight / 2) + (optionHeight / 2);
+    }
+  });
+
+  minHolder.addEventListener("scroll", () => {
+    console.log(minHolder.scrollTop)
+    if (minListHeight < minHolder.scrollTop) {
+      minHolder.scrollTop = (minListHeight / 2) - (optionHeight / 2);
+    } else if (minHolder.scrollTop === 0) {
+      minHolder.scrollTop = (minListHeight / 2) + (optionHeight / 2);
+    }
+  });
 }
 
 function checkAlarmSelected() {
