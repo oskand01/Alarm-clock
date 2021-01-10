@@ -17,6 +17,7 @@ function Alarm(hour, minute) {
   this.hour = hour;
   this.minute = minute;
   this.alarmTime = `${this.hour}:${this.minute}`;
+  this.isNew = true;
   this.active = true;
   this.delete = false;
 }
@@ -140,31 +141,7 @@ function newAlarmButtonFocus() {
   }, 500);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 //
-
-
-
-
-
-
-
-
-
-
-
-
 
 //Här börjar skapandet av listan
 function fillSelectHour() {
@@ -241,7 +218,6 @@ function createMinOption(minList, i) {
   return minOption;
 }
 
-
 function setListItemHeight() {
   let options = document.querySelectorAll(".alarm-option");
   let optionHeight = options[0].offsetHeight;
@@ -264,18 +240,18 @@ function getListScroll() {
   hourHolder.addEventListener("scroll", () => {
     console.log(hourHolder.scrollTop);
     if (hourListHeight < hourHolder.scrollTop) {
-      hourHolder.scrollTop = (hourListHeight / 2) - (optionHeight / 2);
+      hourHolder.scrollTop = hourListHeight / 2 - optionHeight / 2;
     } else if (hourHolder.scrollTop === 0) {
-      hourHolder.scrollTop = (hourListHeight / 2) + (optionHeight / 2);
+      hourHolder.scrollTop = hourListHeight / 2 + optionHeight / 2;
     }
   });
 
   minHolder.addEventListener("scroll", () => {
-    console.log(minHolder.scrollTop)
+    console.log(minHolder.scrollTop);
     if (minListHeight < minHolder.scrollTop) {
-      minHolder.scrollTop = (minListHeight / 2) - (optionHeight / 2);
+      minHolder.scrollTop = minListHeight / 2 - optionHeight / 2;
     } else if (minHolder.scrollTop === 0) {
-      minHolder.scrollTop = (minListHeight / 2) + (optionHeight / 2);
+      minHolder.scrollTop = minListHeight / 2 + optionHeight / 2;
     }
   });
 }
@@ -409,14 +385,6 @@ function createAlarmElements() {
 
   for (let i = 0; i < alarms.length; i++) {
     alarmList.prepend(createAlarmListItem(alarms[i]));
-
-    setTimeout(() => {
-      alarmList.childNodes.forEach((alarmItem) => {
-        setTimeout(() => {
-          alarmItem.style.transform = "scale(1)";
-        }, 1);
-      });
-    }, 50);
   }
 }
 
@@ -426,6 +394,13 @@ function createAlarmListItem(obj) {
     alarmListItem.className = "alarm-list-item";
   } else {
     alarmListItem.className = "alarm-list-item alarm-list-item-inactive";
+  }
+  if (obj.isNew) {
+    alarmListItem.style.transform = "scale(0.01)";
+    setTimeout(() => {
+      alarmListItem.style.transform = "scale(1)";
+      obj.isNew = false;
+    }, 100);
   }
 
   alarmListItem.appendChild(createActiveButton(obj));
