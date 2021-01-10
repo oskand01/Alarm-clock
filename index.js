@@ -28,6 +28,7 @@ function initApp() {
   initiateNewAlarmButton();
   /* fillSelectHour();
   fillSelectMinute(); */
+
   initiateExitAlarmButton();
   initiateSaveAlarmButton();
   newAlarmButtonFocus();
@@ -87,7 +88,7 @@ function initiateNewAlarmButton() {
     exitAlarmButton.style.display = "inline-block";
     document.getElementById("main-container").style.position = "absolute";
     document.getElementById("main-container").style.width = "100vw";
-    document.getElementById("alarm-list-container").style.marginTop = "48vw"
+    document.getElementById("alarm-list-container").style.marginTop = "48vw";
 
     fillSelectHour();
     fillSelectMinute();
@@ -200,18 +201,21 @@ function getListScroll() {
   const minHolder = document.getElementById("min-list");
   let options = document.querySelectorAll(".alarm-option");
   let optionHeight = options[0].offsetHeight;
-  let hourListHeight = optionHeight * 46;
-  let minListHeight = optionHeight * 118;
+  let hourListHeight = optionHeight * 47;
+
+  let minListHeight = optionHeight * 119;
+  console.log(optionHeight, hourListHeight);
 
   hourHolder.addEventListener("scroll", () => {
-    if (hourListHeight < hourHolder.scrollTop) {
-      hourHolder.scrollTop = 0;
+    console.log(hourHolder.scrollTop);
+    if (hourListHeight < hourHolder.scrollTop + (optionHeight / 2)) {
+      hourHolder.scrollTop /= 2;
     }
   });
 
   minHolder.addEventListener("scroll", () => {
-    if (minListHeight < hourHolder.scrollTop) {
-      minHolder.scrollTop = 0;
+    if (minListHeight < minHolder.scrollTop + (optionHeight / 2)) {
+      minHolder.scrollTop /= 2;
     }
   });
 }
@@ -305,7 +309,7 @@ function resetAlarmInput() {
   document.querySelector(".left").style.visibility = "visible";
   saveAlarmButton.style.display = "none";
   document.getElementById("main-container").style.position = "static";
-  document.getElementById("alarm-list-container").style.marginTop = "0"
+  document.getElementById("alarm-list-container").style.marginTop = "0";
 }
 
 function saveAlarmAnimation() {
@@ -513,8 +517,8 @@ function hornAlarm() {
   }, 500);
 }
 
-checkDevice();
 window.addEventListener("DOMContentLoaded", () => {
+  checkDevice();
   initApp();
   setInterval(setTime, 1000);
 });
