@@ -514,13 +514,13 @@ function checkAlarm(alarmCheck) {
 
 function initAlarm() {
   newAlarmButton.style.display = "none";
-  document.getElementById("alarm-list-container").style.opacity = "30%";
-  document.getElementsByTagName("header")[0].style.opacity = "30%";
+  document.getElementById("alarm-list-container").style.opacity = "10%";
+  document.getElementsByTagName("header")[0].style.opacity = "10%";
   clockContainer.tabIndex = "-1";
   clockContainer.focus();
   const alarmTimer = setInterval(hornAlarm, 1000);
 
-  
+
   clockContainer.addEventListener("click", () => {
     clearInterval(alarmTimer);
     clockContainer.tabIndex = "initial";
