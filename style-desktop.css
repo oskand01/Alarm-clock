@@ -184,6 +184,7 @@ address {
   display: none;
   box-shadow: #d7ead7 inset 0 0 5vw;
   transition: 0.3s ease-in;
+  align-items: center;
 
   justify-content: center;
 }
@@ -221,7 +222,8 @@ address {
   color: #3d3d3d;
   align-self: center;
   height: 100%;
-  height: 35vw;
+  width: 100vw;
+  margin: 0 auto;
   padding: 3vw 0vw;
 }
 

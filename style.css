@@ -235,6 +235,7 @@ input:focus {
   height: 100%;
   height: 35vw;
   padding: 3vw 0vw;
+  width: 100vw;
 }
 
 .button-container {

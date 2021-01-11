@@ -87,7 +87,7 @@ function getDate() {
 
 function initiateNewAlarmButton() {
   newAlarmButton.addEventListener("click", () => {
-    alarmContainer.style.display = "block";
+    alarmContainer.style.display = "flex";
     clockContainer.style.display = "none";
     newAlarmButton.style.display = "none";
     exitAlarmButton.style.display = "inline-block";
@@ -100,6 +100,7 @@ function initiateNewAlarmButton() {
     fillSelectMinute();
     setListItemHeight(getListScroll);
     setTimeout(scrollAnimation, 50);
+    setAlarmListFocus()
   });
 }
 
@@ -122,14 +123,14 @@ function scrollAnimation() {
   }, 500);
 }
 
-function setAlarmListFocus(callBack) {
+function setAlarmListFocus() {
   let listHours = document.querySelectorAll(".hour-option");
   let listMins = document.querySelectorAll(".min-option");
   const currentTime = new Date();
 
   listMins[currentTime.getMinutes() + 60].focus();
   listHours[currentTime.getHours() + 24].focus();
-  callBack();
+  
   //scrollAlarmList(currentTime.getHours() + 24, currentTime.getMinutes() + 60);
 }
 
