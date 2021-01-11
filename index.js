@@ -36,8 +36,7 @@ function initApp() {
 }
 
 function checkDevice() {
-  document.body.style.minHeight = "100vh";
-  document.body.style.maxWidth = "100vw";
+  
 
   let w;
   let h;
@@ -49,8 +48,12 @@ function checkDevice() {
     w = document.documentElement.clientWidth;
     h = document.documentElement.clientHeight;
   }
+  document.body.style.minHeight = h;
+  document.body.style.maxWidth = w;
   if (w > h) {
     document.getElementById("style-sheet").href = "style-desktop.css";
+    document.getElementsByTagName("footer")[0].style.position = "static";
+    console.log(document.getElementsByTagName("footer")[0])
     window.addEventListener("DOMContentLoaded", () => {
       if (document.querySelectorAll(".alarm-option")[0] !== undefined) {
         setListItemHeight();
@@ -88,14 +91,14 @@ function initiateNewAlarmButton() {
     clockContainer.style.display = "none";
     newAlarmButton.style.display = "none";
     exitAlarmButton.style.display = "inline-block";
-    document.getElementById("main-container").style.position = "absolute";
+    document.getElementById("main-container").style.position = "fixed";
     document.getElementById("main-container").style.width = "100vw";
-    document.getElementById("alarm-list-container").style.marginTop = "48vw";
+    document.getElementById("main-container").style.top = "0";
+    document.querySelector(".alarm-container").style.marginTop = "48vw";
 
     fillSelectHour();
     fillSelectMinute();
-    setListItemHeight();
-    setAlarmListFocus(getListScroll);
+    setListItemHeight(getListScroll);
     setTimeout(scrollAnimation, 50);
   });
 }
@@ -219,7 +222,7 @@ function createMinOption(minList, i) {
   return minOption;
 }
 
-function setListItemHeight() {
+function setListItemHeight(callBack) {
   let options = document.querySelectorAll(".alarm-option");
   let optionHeight = options[0].offsetHeight;
   options.forEach((option) => {
@@ -227,13 +230,18 @@ function setListItemHeight() {
     option.style.minHeight = `${optionHeight}px`;
     option.style.maxHeight = `${optionHeight}px`;
   });
+  if(callBack !== undefined) {
+    callBack();
+
+  }
+  
 }
 
 function getListScroll() {
   const hourHolder = document.getElementById("hour-list");
   const minHolder = document.getElementById("min-list");
   let options = document.querySelectorAll(".alarm-option");
-  let optionHeight = options[0].offsetHeight;
+  let optionHeight = options[0].clientHeight;
   let hourListHeight = optionHeight * 47;
   let minListHeight = optionHeight * 119;
   console.log(optionHeight, minListHeight);
@@ -318,7 +326,10 @@ function resetAlarmInput() {
   document.querySelector(".left").style.visibility = "visible";
   saveAlarmButton.style.display = "none";
   document.getElementById("main-container").style.position = "static";
-  document.getElementById("alarm-list-container").style.marginTop = "0";
+  document.getElementById("alarm-list-container").style.marginTop = "0";    
+  document.querySelector(".alarm-container").style.marginTop = "0";
+
+
 }
 
 function saveAlarmAnimation() {
@@ -369,6 +380,7 @@ function uppdateAlarmList() {
   if (alarms.length < 1) {
     document.querySelector(".alarm-list-header").textContent = "NO ALARMS";
   } else {
+    
     document.querySelector(".alarm-list-header").textContent = "ALARMS";
     for (let i = 0; i < alarms.length; i++) {
       if (alarms[i].delete === true) {
@@ -384,8 +396,9 @@ function uppdateAlarmList() {
 function createAlarmElements() {
   const alarmList = document.getElementById("alarm-list");
 
+
   for (let i = 0; i < alarms.length; i++) {
-    alarmList.prepend(createAlarmListItem(alarms[i]));
+    alarmList.appendChild(createAlarmListItem(alarms[i]));
   }
 }
 
@@ -401,7 +414,8 @@ function createAlarmListItem(obj) {
     setTimeout(() => {
       alarmListItem.style.transform = "scale(1)";
       obj.isNew = false;
-    }, 200);
+
+    }, 150);
   }
 
   alarmListItem.appendChild(createActiveButton(obj));

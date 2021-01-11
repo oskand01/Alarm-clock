@@ -241,7 +241,7 @@ input:focus {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-top: 3vw;
+  
   transition: 0.3s;
 }
 
@@ -321,6 +321,7 @@ input:focus {
 .alarm-container {
   background-color: #f8f1f1;
   height: 100%;
+  height: calc(100vh - 48vw - 10vw);
 
   width: 100%;
 
@@ -335,8 +336,10 @@ input:focus {
   margin: 0 auto 0;
   max-height: 63vh;
 
+
   padding: 4vw 4vw 0vw;
   overflow: scroll;
+  height: calc(100vh - 48vw - 10vw);
 }
 
 #alarm-list-container h3 {
@@ -352,8 +355,9 @@ input:focus {
 }
 
 #alarm-list {
-  height: 100%;
+  height: calc(100vh - 80vw);
   overflow: scroll;
+  scroll-behavior: smooth;
 }
 
 #exit-alarm-button {
