@@ -31,6 +31,8 @@ header {
   height: 10vw;
   background-color: #f3f5f6;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  transition: 0.5s;
+
 }
 
 .header-container {
@@ -119,6 +121,10 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.clock-container:focus {
+  outline: none;
 }
 
 #hour {
@@ -341,6 +347,7 @@ input:focus {
   padding: 4vw 4vw 0vw;
   overflow: scroll;
   height: calc(100vh - 48vw - 10vw);
+  transition: 0.5s;
 }
 
 #alarm-list-container h3 {
@@ -430,11 +437,18 @@ input:focus {
   padding-left: 3vw;
   border-radius: 0.4rem;
   color: #666666;
-  transition: 0.5s;
+  transition: 0.9s;
   background-color: #fadcdb;
   box-shadow: #f8cbc9 0vw 0.4vw 0.8vw 0vw inset;
+  
  
 }
+
+.alarm-list-item:focus {
+  outline: none;
+  border:none;
+}
+
 
 .alarm-list-item:nth-child(3n + 2) {
   background-color: #fff3d6;

@@ -6,6 +6,10 @@
   font-family: roboto;
 }
 
+*::-webkit-scrollbar {
+  display: none;
+}
+
 html {
   background-color: white;
   max-height: fit-content;
@@ -31,6 +35,8 @@ header {
   height: 6vw;
   background-color: #f3f5f6;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  transition: 0.5s;
+
 }
 
 .header-container {
@@ -107,6 +113,10 @@ address {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.clock-container:focus {
+  outline: none;
 }
 
 #hour {
@@ -330,6 +340,8 @@ address {
   padding: 4vw 4vw 0vw;
   
   min-height: calc(100vh - 33vw);
+  transition: 0.5s;
+
 }
 
 #alarm-list-container h3 {
@@ -419,10 +431,16 @@ address {
   padding-left: 2vw;
   border-radius: 0.4rem;
   color: #666666;
-  transition: 0.5s;
+  transition: 0.9s;
   background-color: #fadcdb;
   box-shadow: #f8cbc9 0vw 0.4vw 0.8vw 0vw inset;
+
  
+}
+
+.alarm-list-item:focus {
+  outline: none;
+  border:none;
 }
 
 .alarm-list-item:nth-child(3n + 2) {

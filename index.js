@@ -36,8 +36,6 @@ function initApp() {
 }
 
 function checkDevice() {
-  
-
   let w;
   let h;
 
@@ -53,7 +51,7 @@ function checkDevice() {
   if (w > h) {
     document.getElementById("style-sheet").href = "style-desktop.css";
     document.getElementsByTagName("footer")[0].style.position = "static";
-    console.log(document.getElementsByTagName("footer")[0])
+    console.log(document.getElementsByTagName("footer")[0]);
     window.addEventListener("DOMContentLoaded", () => {
       if (document.querySelectorAll(".alarm-option")[0] !== undefined) {
         setListItemHeight();
@@ -100,7 +98,7 @@ function initiateNewAlarmButton() {
     fillSelectMinute();
     setListItemHeight(getListScroll);
     setTimeout(scrollAnimation, 50);
-    setAlarmListFocus()
+    setAlarmListFocus();
   });
 }
 
@@ -130,14 +128,15 @@ function setAlarmListFocus() {
 
   listMins[currentTime.getMinutes() + 60].focus();
   listHours[currentTime.getHours() + 24].focus();
-  
+
   //scrollAlarmList(currentTime.getHours() + 24, currentTime.getMinutes() + 60);
 }
 
 function newAlarmButtonFocus() {
   newAlarmButton.style.transition = "0.5s";
-  newAlarmButton.style.transform = "scale(1.2)";
-  newAlarmButton.style.marginRight = "4vw";
+  newAlarmButton.style.transform = "scale(1.1)";
+  newAlarmButton.style.marginRight = "3vw";
+
   setTimeout(() => {
     newAlarmButton.style.transform = "scale(1)";
     newAlarmButton.style.transition = "0.3s";
@@ -152,6 +151,7 @@ function newAlarmButtonFocus() {
 function fillSelectHour() {
   let x = 0;
   let hourList = document.getElementById("hour-list");
+
   for (let x = 0; x < 2; x++) {
     for (let i = 0; i < 24; i++) {
       hourList.appendChild(createHourOption(hourList, i));
@@ -160,7 +160,7 @@ function fillSelectHour() {
 }
 
 function createHourOption(hourList, i) {
-  let hourOption = document.createElement("li");
+  const hourOption = document.createElement("li");
   const hourSelected = document.getElementById("alarm-hour");
   hourOption.className = "alarm-option hour-option";
   hourOption.tabIndex = "-1";
@@ -173,7 +173,7 @@ function createHourOption(hourList, i) {
 
   hourOption.addEventListener("click", (event) => {
     document.querySelector(".left").style.visibility = "hidden";
-    // hourList.scrollTo(event.target.offsetWidth, event.target.offsetHeight);
+    event.target.focus();
     hourSelected.textContent = event.target.textContent;
 
     document.getElementById("hour-list").style.display = "none";
@@ -231,11 +231,9 @@ function setListItemHeight(callBack) {
     option.style.minHeight = `${optionHeight}px`;
     option.style.maxHeight = `${optionHeight}px`;
   });
-  if(callBack !== undefined) {
+  if (callBack !== undefined) {
     callBack();
-
   }
-  
 }
 
 function getListScroll() {
@@ -327,10 +325,8 @@ function resetAlarmInput() {
   document.querySelector(".left").style.visibility = "visible";
   saveAlarmButton.style.display = "none";
   document.getElementById("main-container").style.position = "static";
-  document.getElementById("alarm-list-container").style.marginTop = "0";    
+  document.getElementById("alarm-list-container").style.marginTop = "0";
   document.querySelector(".alarm-container").style.marginTop = "0";
-
-
 }
 
 function saveAlarmAnimation() {
@@ -344,23 +340,11 @@ function checkAlarmInput() {
   let hour = document.getElementById("alarm-hour").textContent;
   let min = document.getElementById("alarm-min").textContent;
 
-  if (hour === "" || min === "") {
-    alarmContainer.style.backgroundColor = "#BB7777";
-    setTimeout(() => {
-      alarmContainer.style.backgroundColor = "#E4F1E4";
-      setTimeout(() => {
-        resetAlarmInput();
-      }, 200);
-    }, 200);
-
-    return;
-  } else {
-    saveAlarmAnimation();
-    setTimeout(() => {
-      createAlarm(hour, min);
-      resetAlarmInput();
-    }, 300);
-  }
+  saveAlarmAnimation();
+  setTimeout(() => {
+    createAlarm(hour, min);
+    resetAlarmInput();
+  }, 300);
 }
 
 function createAlarm(hour, min) {
@@ -381,8 +365,7 @@ function uppdateAlarmList() {
   if (alarms.length < 1) {
     document.querySelector(".alarm-list-header").textContent = "NO ALARMS";
   } else {
-    
-    document.querySelector(".alarm-list-header").textContent = "ALARMS";
+    document.querySelector(".alarm-list-header").textContent = "ALARMS:";
     for (let i = 0; i < alarms.length; i++) {
       if (alarms[i].delete === true) {
         alarms.splice(i, 1);
@@ -397,7 +380,6 @@ function uppdateAlarmList() {
 function createAlarmElements() {
   const alarmList = document.getElementById("alarm-list");
 
-
   for (let i = 0; i < alarms.length; i++) {
     alarmList.appendChild(createAlarmListItem(alarms[i]));
   }
@@ -410,12 +392,17 @@ function createAlarmListItem(obj) {
   } else {
     alarmListItem.className = "alarm-list-item alarm-list-item-inactive";
   }
+  alarmListItem.tabIndex = "-1";
   if (obj.isNew) {
     alarmListItem.style.transform = "scale(0.01)";
+
     setTimeout(() => {
+      alarmListItem.focus();
       alarmListItem.style.transform = "scale(1)";
       obj.isNew = false;
-
+      setTimeout(() => {
+        newAlarmButtonFocus();
+      }, 950);
     }, 150);
   }
 
@@ -511,14 +498,7 @@ function setTime() {
 
     if (checkAlarm(alarmCheck)) {
       returnToDashboard();
-      newAlarmButton.style.display = "none";
-      const alarmTimer = setInterval(hornAlarm, 1000);
-      clockContainer.addEventListener("click", () => {
-        clearInterval(alarmTimer);
-        clockContainer.style.boxShadow = "initial";
-        newAlarmButton.style.display = "initial";
-
-      });
+      initAlarm();
     }
   }
 }
@@ -531,7 +511,26 @@ function checkAlarm(alarmCheck) {
   }
   return false;
 }
-//last ten seconds every hour the
+
+function initAlarm() {
+  newAlarmButton.style.display = "none";
+  document.getElementById("alarm-list-container").style.opacity = "30%";
+  document.getElementsByTagName("header")[0].style.opacity = "30%";
+  clockContainer.tabIndex = "-1";
+  clockContainer.focus();
+  const alarmTimer = setInterval(hornAlarm, 1000);
+
+  
+  clockContainer.addEventListener("click", () => {
+    clearInterval(alarmTimer);
+    clockContainer.tabIndex = "initial";
+    clockContainer.style.boxShadow = "initial";
+    newAlarmButton.style.display = "initial";
+    document.getElementById("alarm-list-container").style.opacity = "initial";
+    document.getElementsByTagName("header")[0].style.opacity = "initial";
+  });
+}
+
 function hornAlarm() {
   const audio = new Audio("/media/mjauLarm4.mp3");
   audio.play();
