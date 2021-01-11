@@ -1,16 +1,10 @@
 "use strict";
 
-window.addEventListener("resize", checkDevice);
-const hoursSpan = document.getElementById("hour");
-const minutesSpan = document.getElementById("minute");
-//const secondsSpan = document.getElementById("second");
-
 const alarmContainer = document.getElementById("alarm-container");
 const clockContainer = document.querySelector(".clock-container");
 const newAlarmButton = document.getElementById("menu");
 const saveAlarmButton = document.getElementById("save-alarm-button");
 const exitAlarmButton = document.getElementById("exit-alarm-button");
-
 let alarms = [];
 
 function Alarm(hour, minute) {
@@ -27,7 +21,7 @@ function initApp() {
   setTime();
   uppdateAlarmList();
   initiateNewAlarmButton();
-  /* fillSelectHour();
+  /*  fillSelectHour();
   fillSelectMinute(); */
 
   initiateExitAlarmButton();
@@ -46,12 +40,13 @@ function checkDevice() {
     w = document.documentElement.clientWidth;
     h = document.documentElement.clientHeight;
   }
+
   document.body.style.minHeight = h;
   document.body.style.maxWidth = w;
-  if (w > h) {
+
+  if (w > h * 1.2) {
     document.getElementById("style-sheet").href = "style-desktop.css";
-    document.getElementsByTagName("footer")[0].style.position = "static";
-    console.log(document.getElementsByTagName("footer")[0]);
+
     window.addEventListener("DOMContentLoaded", () => {
       if (document.querySelectorAll(".alarm-option")[0] !== undefined) {
         setListItemHeight();
@@ -59,6 +54,7 @@ function checkDevice() {
     });
   } else {
     document.getElementById("style-sheet").href = "style.css";
+
     window.addEventListener("DOMContentLoaded", () => {
       if (document.querySelectorAll(".alarm-option")[0] !== undefined) {
         setListItemHeight();
@@ -84,14 +80,16 @@ function getDate() {
 }
 
 function initiateNewAlarmButton() {
+  const mainContainer = document.getElementById("main-container")
+  
   newAlarmButton.addEventListener("click", () => {
     alarmContainer.style.display = "flex";
     clockContainer.style.display = "none";
     newAlarmButton.style.display = "none";
     exitAlarmButton.style.display = "inline-block";
-    document.getElementById("main-container").style.position = "fixed";
-    document.getElementById("main-container").style.width = "100vw";
-    document.getElementById("main-container").style.top = "0";
+    mainContainer.style.position = "fixed";
+    mainContainer.style.width = "100vw";
+    mainContainer.style.top = "0";
     document.querySelector(".alarm-container").style.marginTop = "48vw";
 
     fillSelectHour();
@@ -198,6 +196,7 @@ function fillSelectMinute() {
 function createMinOption(minList, i) {
   const minOption = document.createElement("li");
   const minSelected = document.getElementById("alarm-min");
+  const arrowMin = document.querySelector(".right")
 
   minOption.className = "alarm-option  min-option";
   minOption.tabIndex = "-1";
@@ -210,8 +209,7 @@ function createMinOption(minList, i) {
 
   minOption.addEventListener("click", (event) => {
     minList.scrollTo(event.target.offsetWidth, event.target.offsetHeight);
-
-    document.querySelector(".right").style.visibility = "hidden";
+    arrowMin.style.visibility = "hidden";
     minSelected.textContent = event.target.textContent;
 
     document.getElementById("min-list").style.display = "none";
@@ -474,6 +472,8 @@ function createDeleteAlarmButtonImg() {
 }
 
 function setTime() {
+  const hoursSpan = document.getElementById("hour");
+  const minutesSpan = document.getElementById("minute");
   const time = new Date();
   let hour = time.getHours();
   let minute = time.getMinutes();
@@ -514,12 +514,11 @@ function checkAlarm(alarmCheck) {
 
 function initAlarm() {
   newAlarmButton.style.display = "none";
-  document.getElementById("alarm-list-container").style.opacity = "10%";
-  document.getElementsByTagName("header")[0].style.opacity = "10%";
+  document.getElementById("alarm-list-container").style.opacity = "15%";
+  document.getElementsByTagName("header")[0].style.opacity = "15%";
   clockContainer.tabIndex = "-1";
   clockContainer.focus();
   const alarmTimer = setInterval(hornAlarm, 1000);
-
 
   clockContainer.addEventListener("click", () => {
     clearInterval(alarmTimer);
@@ -542,6 +541,7 @@ function hornAlarm() {
   }, 500);
 }
 
+window.addEventListener("resize", checkDevice);
 window.addEventListener("DOMContentLoaded", () => {
   checkDevice();
   initApp();

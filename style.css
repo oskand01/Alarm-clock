@@ -6,6 +6,10 @@
   font-family: roboto;
 }
 
+*::-webkit-scrollbar {
+  display: none;
+}
+
 html {
   background-color: white;
   max-height: fit-content;
