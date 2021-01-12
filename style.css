@@ -432,9 +432,9 @@ input:focus {
   padding-left: 3vw;
   border-radius: 0.4rem;
   color: #666666;
-  transition: 0.9s;
-  background-color: #fadcdb;
-  box-shadow: #f8cbc9 0vw 0.4vw 0.8vw 0vw inset;
+  transition: 0.5s;
+  /* background-color: #fadcdb;
+  box-shadow: #f8cbc9 0vw 0.4vw 0.8vw 0vw inset; */
 }
 
 .alarm-list-item:focus {
@@ -442,7 +442,7 @@ input:focus {
   border: none;
 }
 
-.alarm-list-item:nth-child(3n + 2) {
+/* .alarm-list-item:nth-child(3n + 2) {
   background-color: #fff3d6;
   box-shadow: #ffedc2 0vw 0.4vw 0.8vw 0vw inset;
 }
@@ -451,7 +451,7 @@ input:focus {
   background-color: #e4f1e4;
   box-shadow: #d7ead7 0vw 0.4vw 0.8vw 0vw inset;
 }
-
+ */
 .alarm-list-item h5 {
   font-size: 6vw;
   font-stretch: expanded;

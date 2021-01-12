@@ -11,6 +11,7 @@ function Alarm(hour, minute) {
   this.hour = hour;
   this.minute = minute;
   this.alarmTime = `${this.hour}:${this.minute}`;
+  this.color = undefined;
   this.isNew = true;
   this.active = true;
   this.delete = false;
@@ -104,8 +105,8 @@ function scrollAnimation() {
   const arrows = document.querySelectorAll(".arrow");
 
   arrows.forEach((arrow) => {
-    arrow.style.marginBottom = "8vw";
-    arrow.style.marginTop = "8vw";
+    arrow.style.marginBottom = "7vw";
+    arrow.style.marginTop = "7vw";
     arrow.style.opacity = "100%";
     arrow.style.transform = "scale(1.1)";
   });
@@ -195,7 +196,6 @@ function initHourSelected(hourSelected, hourOption) {
     hourSelected.style.display = "none";
     document.getElementById("hour-list").style.display = "block";
     saveAlarmButton.style.display = "none";
-
 
     hourOption.focus();
 
@@ -407,20 +407,25 @@ function createAlarmElements() {
   const alarmList = document.getElementById("alarm-list");
 
   for (let i = 0; i < alarms.length; i++) {
-    alarmList.appendChild(createAlarmListItem(alarms[i]));
+    alarmList.prepend(createAlarmListItem(alarms[i]));
   }
 }
 
 function createAlarmListItem(obj) {
+  const colors = ["#fadcdb", "#fff3d6", "#e4f1e4", "#e2ebf3"];
   const alarmListItem = document.createElement("li");
   if (obj.active) {
     alarmListItem.className = "alarm-list-item";
   } else {
     alarmListItem.className = "alarm-list-item alarm-list-item-inactive";
   }
+  alarmListItem.style.backgroundColor = obj.color;
   alarmListItem.tabIndex = "-1";
   if (obj.isNew) {
+    obj.color = colors[Math.floor(Math.random() * 4)];
+    alarmListItem.style.backgroundColor = obj.color;
     alarmListItem.style.transform = "scale(0.01)";
+    
 
     setTimeout(() => {
       alarmListItem.focus();
@@ -431,12 +436,31 @@ function createAlarmListItem(obj) {
       }, 950);
     }, 150);
   }
+  
 
   alarmListItem.appendChild(createActiveButton(obj));
   alarmListItem.appendChild(createAlarmHeader(obj));
   alarmListItem.appendChild(createDeleteAlarmButton(obj));
+  setAlarmShadowColor(obj, alarmListItem);
 
   return alarmListItem;
+}
+
+function setAlarmShadowColor(obj, alarmListItem) {
+  switch (obj.color) {
+    case "#fadcdb":
+      alarmListItem.style.boxShadow = "#f8cbc9 0vw 0.4vw 0.8vw 0vw inset";
+      break;
+    case "#fff3d6":
+      alarmListItem.style.boxShadow = "#ffedc2 0vw 0.4vw 0.8vw 0vw inset";
+      break;
+    case "#e4f1e4":
+      alarmListItem.style.boxShadow = "#d7ead7 0vw 0.4vw 0.8vw 0vw inset";
+      break;
+    case "#e2ebf3":
+      alarmListItem.style.boxShadow = "#d4e2ed 0vw 0.4vw 0.8vw 0vw inset";
+      break;
+  }
 }
 
 function createAlarmHeader(obj) {
@@ -488,8 +512,11 @@ function createDeleteAlarmButton(obj) {
 
 function initDeleteAlarmButton(deleteButton, obj) {
   deleteButton.addEventListener("click", () => {
-    obj.delete = true;
-    clearAlarmList();
+    deleteButton.parentNode.style.transform = "scale(0.01)";
+    setTimeout(() => {
+      obj.delete = true;
+      clearAlarmList();
+    }, 400);
   });
 }
 
