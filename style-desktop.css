@@ -187,7 +187,7 @@ address {
   height: 100%;
   background-color: #e4f1e4;
 
-  min-height: calc(100vh - 6vw);
+  height: calc(100vh);
   display: none;
   box-shadow: #d7ead7 inset 0 0 5vw;
   transition: 0.3s ease-in;
@@ -228,8 +228,7 @@ address {
   align-self: center;
   height: 100%;
   width: 100vw;
-  margin: 0 auto;
-  padding: 3vw 0vw;
+  padding-bottom: 12vh;
 }
 
 .button-container {
@@ -384,7 +383,7 @@ address {
   padding: 0;
   position: relative;
   left: 47vw;
-  bottom: 10vw;
+  bottom: 15vw;
 
   border: none;
   opacity: 50%;
