@@ -159,7 +159,7 @@ input:focus {
 
 #date {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 4vw;
+  font-size: 4.5vw;
   font-weight: 200;
   padding-top: 0.2vw;
   color: #0a0a0a;
@@ -427,8 +427,8 @@ input:focus {
   justify-content: space-between;
   align-items: center;
   min-height: 3vw;
-  margin-top: 4vw;
-  padding: 2vw;
+  margin-top: 5vw;
+  padding: 2.8vw 2vw;
   padding-left: 3vw;
   border-radius: 0.4rem;
   color: #666666;
@@ -453,7 +453,7 @@ input:focus {
 }
  */
 .alarm-list-item h5 {
-  font-size: 6vw;
+  font-size: 5vw;
   font-stretch: expanded;
   font-family: monospace;
   color: #666666;
@@ -465,7 +465,7 @@ input:focus {
 }
 
 .alarm-list-item-inactive {
-  opacity: 60%;
+  opacity: 50%;
 }
 
 .alarm-list-item-inactive h5 {
@@ -492,7 +492,7 @@ input:focus {
   padding: 0;
 
   border: none;
-  opacity: 60%;
+  opacity: 50%;
   transition: 0.3s;
   margin-top: 0.16vw;
   transition: 0.3s;
@@ -510,6 +510,8 @@ input:focus {
   width: 4vw;
   height: 4vw;
 }
+
+
 
 .alarm-button:last-child img {
   width: 6vw;

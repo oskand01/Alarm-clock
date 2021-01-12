@@ -407,12 +407,12 @@ function createAlarmElements() {
   const alarmList = document.getElementById("alarm-list");
 
   for (let i = 0; i < alarms.length; i++) {
-    alarmList.prepend(createAlarmListItem(alarms[i]));
+    alarmList.prepend(createAlarmListItem(alarms[i], i));
   }
 }
 
-function createAlarmListItem(obj) {
-  const colors = ["#fadcdb", "#fff3d6", "#e4f1e4", "#e2ebf3"];
+function createAlarmListItem(obj, i) {
+  let colors = ["#fadcdb", "#fff3d6", "#e4f1e4", "#e2ebf3"];
   const alarmListItem = document.createElement("li");
   if (obj.active) {
     alarmListItem.className = "alarm-list-item";
@@ -423,9 +423,14 @@ function createAlarmListItem(obj) {
   alarmListItem.tabIndex = "-1";
   if (obj.isNew) {
     obj.color = colors[Math.floor(Math.random() * 4)];
+    if (alarms[i - 1] !== undefined && obj.color === alarms[i - 1].color) {
+      colors = colors.filter(function (color) {
+        return color !== obj.color;
+      });
+      obj.color = colors[Math.floor(Math.random() * 3)];
+    }
     alarmListItem.style.backgroundColor = obj.color;
     alarmListItem.style.transform = "scale(0.01)";
-    
 
     setTimeout(() => {
       alarmListItem.focus();
@@ -436,7 +441,6 @@ function createAlarmListItem(obj) {
       }, 950);
     }, 150);
   }
-  
 
   alarmListItem.appendChild(createActiveButton(obj));
   alarmListItem.appendChild(createAlarmHeader(obj));
