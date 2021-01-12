@@ -36,7 +36,6 @@ header {
   background-color: #f3f5f6;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   transition: 0.5s;
-
 }
 
 .header-container {
@@ -216,7 +215,6 @@ input:focus {
   transition: 0.7s;
   color: #3d3d3d;
 
-  
   margin-right: 2vw;
 
   width: 40vw;
@@ -231,7 +229,6 @@ input:focus {
   width: 40vw;
   text-align: left;
   margin-left: 2vw;
-  
 }
 
 .input-container {
@@ -252,7 +249,7 @@ input:focus {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  
+
   transition: 0.3s;
 }
 
@@ -268,7 +265,7 @@ input:focus {
 
 .arrow {
   width: 2.5vw;
-  transition: 0.5s;
+  transition: 0.7s;
   margin: 1vw 1vw;
   opacity: 70%;
 }
@@ -286,7 +283,7 @@ input:focus {
 
 #hour-list {
   margin-left: 2vw;
-  display:block;
+  display: block;
 }
 #min-list {
   margin-right: 2vw;
@@ -296,17 +293,13 @@ input:focus {
 .alarm-option {
   color: #666666;
   width: 100%;
-
 }
 
 .alarm-option:hover {
-
 }
 
 .alarm-option:focus {
   outline: none;
-  
-
 }
 
 .hour-option {
@@ -317,7 +310,6 @@ input:focus {
   
   justify-content: center; */
   padding-right: 2vw;
-
 }
 
 .min-option {
@@ -346,7 +338,6 @@ input:focus {
   max-width: 1200px;
   margin: 0 auto 0;
   max-height: 63vh;
-
 
   padding: 4vw 4vw 0vw;
   overflow: scroll;
@@ -444,15 +435,12 @@ input:focus {
   transition: 0.9s;
   background-color: #fadcdb;
   box-shadow: #f8cbc9 0vw 0.4vw 0.8vw 0vw inset;
-  
- 
 }
 
 .alarm-list-item:focus {
   outline: none;
-  border:none;
+  border: none;
 }
-
 
 .alarm-list-item:nth-child(3n + 2) {
   background-color: #fff3d6;
