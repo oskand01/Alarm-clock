@@ -412,7 +412,7 @@ function createAlarmElements() {
 }
 
 function createAlarmListItem(obj, i) {
-  let colors = ["#fadcdb", "#fff3d6", "#e4f1e4", "#e2ebf3"];
+  let colors = ["#fadcdb", "#fff3d6", "#e4f1e4", "#e2ebf3", "#F2E3EC"];
   const alarmListItem = document.createElement("li");
   if (obj.active) {
     alarmListItem.className = "alarm-list-item";
@@ -422,12 +422,12 @@ function createAlarmListItem(obj, i) {
   alarmListItem.style.backgroundColor = obj.color;
   alarmListItem.tabIndex = "-1";
   if (obj.isNew) {
-    obj.color = colors[Math.floor(Math.random() * 4)];
+    obj.color = colors[Math.floor(Math.random() * 5)];
     if (alarms[i - 1] !== undefined && obj.color === alarms[i - 1].color) {
       colors = colors.filter(function (color) {
         return color !== obj.color;
       });
-      obj.color = colors[Math.floor(Math.random() * 3)];
+      obj.color = colors[Math.floor(Math.random() * 4)];
     }
     alarmListItem.style.backgroundColor = obj.color;
     alarmListItem.style.transform = "scale(0.01)";
@@ -464,6 +464,10 @@ function setAlarmShadowColor(obj, alarmListItem) {
     case "#e2ebf3":
       alarmListItem.style.boxShadow = "#d4e2ed 0vw 0.4vw 0.8vw 0vw inset";
       break;
+    case "#F2E3EC":
+      alarmListItem.style.boxShadow = "#ECD5E3 0vw 0.4vw 0.8vw 0vw inset";
+      break;
+
   }
 }
 
