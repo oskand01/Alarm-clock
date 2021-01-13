@@ -316,7 +316,7 @@ address {
 
   margin: 0 auto;
 
-  padding: 4vw;
+  padding: 3vw 4vw 4vw;
 }
 
 #alarm-list-container {
@@ -324,7 +324,7 @@ address {
   max-width: 1200px;
   margin: 0 auto 0;
 
-  padding: 4vw 4vw 0vw;
+  padding: 0vw 4vw;
 
   min-height: calc(100vh - 33vw);
   transition: 0.5s;

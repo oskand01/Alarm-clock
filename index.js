@@ -22,14 +22,12 @@ function initApp() {
   setTime();
   uppdateAlarmList();
   initiateNewAlarmButton();
-  /*  fillSelectHour();
-  fillSelectMinute(); */
-
+  fillSelectHour();
+  fillSelectMinute();
   initiateExitAlarmButton();
   initiateSaveAlarmButton();
   newAlarmButtonFocus();
 }
-
 
 /* Checks the width and height of the window att changes stylesheet if the width < height, and the other way around, if necessery. Wanted to avoid using media-queries but still have a decent desktop-view */
 function checkDevice() {
@@ -95,8 +93,6 @@ function initiateNewAlarmButton() {
     mainContainer.style.top = "0";
     document.querySelector(".alarm-container").style.marginTop = "48vw";
 
-    fillSelectHour();
-    fillSelectMinute();
     setListItemHeight(getListScroll);
     setTimeout(scrollAnimation, 50);
     setAlarmListFocus();
@@ -129,7 +125,6 @@ function setAlarmListFocus() {
 
   listMins[currentTime.getMinutes() + 60].focus();
   listHours[currentTime.getHours() + 24].focus();
-
 }
 
 function newAlarmButtonFocus() {
@@ -269,7 +264,6 @@ function setListItemHeight(callBack) {
   }
 }
 
-
 /* Listens to scroll in list when choosing alarm time. 
 If it reaches top or bottom it scrolls to the middle of the two lists. Tried to freestyle infinite scroll */
 function getListScroll() {
@@ -324,7 +318,7 @@ function returnToDashboard() {
   newAlarmButton.style.display = "inline-block";
   saveAlarmButton.style.display = "none";
   resetAlarmInput();
-  resetAlarmList();
+  //resetAlarmList();
 }
 
 function initiateSaveAlarmButton() {
@@ -388,7 +382,6 @@ function createAlarm(hour, min) {
 
 function clearAlarmList() {
   document.querySelectorAll(".alarm-list-item").forEach((e) => e.remove());
-  
 }
 
 function uppdateAlarmList() {
@@ -451,7 +444,6 @@ function setAlarmColor(obj, alarmListItem, i) {
             return color !== alarms[i - x].color;
           });
           obj.color = colors[Math.floor(Math.random() * colors.length)];
-   
         } else {
           x++;
         }
@@ -463,11 +455,10 @@ function setAlarmColor(obj, alarmListItem, i) {
 
     setTimeout(() => {
       alarmListItem.focus();
-       
+
       alarmListItem.style.transform = "scale(1.07)";
       obj.isNew = false;
       setTimeout(() => {
-        
         alarmListItem.style.transform = "scale(1)";
 
         newAlarmButtonFocus();
@@ -477,13 +468,6 @@ function setAlarmColor(obj, alarmListItem, i) {
 
   alarmListItem.style.backgroundColor = obj.color;
 }
-
-/*     if (alarms[i - 1] !== undefined && obj.color === alarms[i - 1].color) {
-      colors = colors.filter(function (color) {
-        return color !== obj.color;
-      });
-      obj.color = colors[Math.floor(Math.random() * 4)];
-    } */
 
 function setAlarmShadowColor(obj, alarmListItem) {
   switch (obj.color) {
@@ -557,14 +541,13 @@ function initDeleteAlarmButton(deleteButton, obj) {
     deleteButton.parentNode.style.transform = "scale(1.07)";
     setTimeout(() => {
       deleteButton.parentNode.style.transform = "scale(0.01)";
-      deleteButton.parentNode.style.opacity = "0%"
+      deleteButton.parentNode.style.opacity = "0%";
       setTimeout(() => {
         obj.delete = true;
         clearAlarmList();
         uppdateAlarmList();
       }, 600);
-
-    },400)
+    }, 400);
   });
 }
 
@@ -647,7 +630,6 @@ function hornAlarm() {
 checkDevice();
 window.addEventListener("resize", checkDevice);
 window.addEventListener("DOMContentLoaded", () => {
-  
   initApp();
   setInterval(setTime, 1000);
 });
