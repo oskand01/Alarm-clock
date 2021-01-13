@@ -72,7 +72,6 @@ function addToLocalStorage() {
 function getLocalStorage() {
   let storedAlarms = JSON.parse(window.localStorage.getItem("alarms"));
   if (storedAlarms !== null) {
-    for (let i = 0; i < storedAlarms.length.length; i++);
     alarms.push(...storedAlarms);
   }
 }
