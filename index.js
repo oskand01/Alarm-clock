@@ -30,6 +30,8 @@ function initApp() {
   newAlarmButtonFocus();
 }
 
+
+/* Checks the width and height of the window att changes stylesheet if the width < height, and the other way around, if necessery. Wanted to avoid using media-queries but still have a decent desktop-view */
 function checkDevice() {
   let w;
   let h;
@@ -128,7 +130,6 @@ function setAlarmListFocus() {
   listMins[currentTime.getMinutes() + 60].focus();
   listHours[currentTime.getHours() + 24].focus();
 
-  //scrollAlarmList(currentTime.getHours() + 24, currentTime.getMinutes() + 60);
 }
 
 function newAlarmButtonFocus() {
@@ -146,9 +147,8 @@ function newAlarmButtonFocus() {
 
 //
 
-//Här börjar skapandet av listan
+//Starts the creation of the hour-list * 2
 function fillSelectHour() {
-  let x = 0;
   let hourList = document.getElementById("hour-list");
 
   for (let x = 0; x < 2; x++) {
@@ -269,6 +269,9 @@ function setListItemHeight(callBack) {
   }
 }
 
+
+/* Listens to scroll in list when choosing alarm time. 
+If it reaches top or bottom it scrolls to the middle of the two lists. Tried to freestyle infinite scroll */
 function getListScroll() {
   const hourHolder = document.getElementById("hour-list");
   const minHolder = document.getElementById("min-list");
@@ -378,13 +381,14 @@ function createAlarm(hour, min) {
 
   setTimeout(() => {
     clearAlarmList();
+    uppdateAlarmList();
     returnToDashboard();
   }, 100);
 }
 
 function clearAlarmList() {
   document.querySelectorAll(".alarm-list-item").forEach((e) => e.remove());
-  uppdateAlarmList();
+  
 }
 
 function uppdateAlarmList() {
@@ -398,7 +402,7 @@ function uppdateAlarmList() {
         uppdateAlarmList();
       }
     }
-    document.querySelectorAll(".alarm-list-item").forEach((e) => e.remove());
+    clearAlarmList();
     createAlarmElements();
   }
 }
@@ -412,62 +416,92 @@ function createAlarmElements() {
 }
 
 function createAlarmListItem(obj, i) {
-  let colors = ["#fadcdb", "#fff3d6", "#e4f1e4", "#e2ebf3", "#F2E3EC"];
   const alarmListItem = document.createElement("li");
+  alarmListItem.tabIndex = "-1";
+
   if (obj.active) {
     alarmListItem.className = "alarm-list-item";
   } else {
     alarmListItem.className = "alarm-list-item alarm-list-item-inactive";
   }
-  alarmListItem.style.backgroundColor = obj.color;
-  alarmListItem.tabIndex = "-1";
-  if (obj.isNew) {
-    obj.color = colors[Math.floor(Math.random() * 5)];
-    if (alarms[i - 1] !== undefined && obj.color === alarms[i - 1].color) {
-      colors = colors.filter(function (color) {
-        return color !== obj.color;
-      });
-      obj.color = colors[Math.floor(Math.random() * 4)];
-    }
-    alarmListItem.style.backgroundColor = obj.color;
-    alarmListItem.style.transform = "scale(0.01)";
-
-    setTimeout(() => {
-      alarmListItem.focus();
-      alarmListItem.style.transform = "scale(1)";
-      obj.isNew = false;
-      setTimeout(() => {
-        newAlarmButtonFocus();
-      }, 950);
-    }, 150);
-  }
 
   alarmListItem.appendChild(createActiveButton(obj));
   alarmListItem.appendChild(createAlarmHeader(obj));
   alarmListItem.appendChild(createDeleteAlarmButton(obj));
+
+  setAlarmColor(obj, alarmListItem, i);
   setAlarmShadowColor(obj, alarmListItem);
 
   return alarmListItem;
 }
 
+/* Gives new Alarm random color from array. If there are more then one alarm it can´t have the same color as the two previous alarms */
+function setAlarmColor(obj, alarmListItem, i) {
+  let colors = ["#fadcdb", "#fff3d6", "#e4f1e4", "#e2ebf3", "#F2E3EC"];
+  let x = 1;
+
+  if (obj.isNew) {
+    obj.color = colors[Math.floor(Math.random() * 5)];
+
+    if (alarms.length > 1) {
+      while (x <= 2) {
+        if (alarms[i - x] !== undefined && obj.color === alarms[i - x].color) {
+          colors = colors.filter(function (color) {
+            x = 1;
+            return color !== alarms[i - x].color;
+          });
+          obj.color = colors[Math.floor(Math.random() * colors.length)];
+   
+        } else {
+          x++;
+        }
+      }
+    }
+
+    alarmListItem.style.transform = "scale(0.01)";
+    alarmListItem.style.backgroundColor = obj.color;
+
+    setTimeout(() => {
+      alarmListItem.focus();
+       
+      alarmListItem.style.transform = "scale(1.07)";
+      obj.isNew = false;
+      setTimeout(() => {
+        
+        alarmListItem.style.transform = "scale(1)";
+
+        newAlarmButtonFocus();
+      }, 650);
+    }, 150);
+  }
+
+  alarmListItem.style.backgroundColor = obj.color;
+}
+
+/*     if (alarms[i - 1] !== undefined && obj.color === alarms[i - 1].color) {
+      colors = colors.filter(function (color) {
+        return color !== obj.color;
+      });
+      obj.color = colors[Math.floor(Math.random() * 4)];
+    } */
+
 function setAlarmShadowColor(obj, alarmListItem) {
   switch (obj.color) {
     case "#fadcdb":
-      alarmListItem.style.boxShadow = "#f8cbc9 0vw 0.4vw 0.8vw 0vw inset";
+      alarmListItem.style.boxShadow = "#f8cbc9 inset 1px 2px 32px -7px";
       break;
     case "#fff3d6":
-      alarmListItem.style.boxShadow = "#ffedc2 0vw 0.4vw 0.8vw 0vw inset";
+      alarmListItem.style.boxShadow = "#ffedc2 inset 1px 2px 32px -7px";
       break;
     case "#e4f1e4":
-      alarmListItem.style.boxShadow = "#d7ead7 0vw 0.4vw 0.8vw 0vw inset";
+      alarmListItem.style.boxShadow = "#d7ead7 inset 1px 2px 32px -7px";
       break;
     case "#e2ebf3":
-      alarmListItem.style.boxShadow = "#d4e2ed 0vw 0.4vw 0.8vw 0vw inset";
+      alarmListItem.style.boxShadow = "#d4e2ed inset 1px 2px 32px -7px";
       break;
     case "#F2E3EC":
-      alarmListItem.style.boxShadow = "#ECD5E3 0vw 0.4vw 0.8vw 0vw inset";
+      alarmListItem.style.boxShadow = "#ECD5E3 inset 1px 2px 32px -7px";
       break;
-
   }
 }
 
@@ -520,11 +554,17 @@ function createDeleteAlarmButton(obj) {
 
 function initDeleteAlarmButton(deleteButton, obj) {
   deleteButton.addEventListener("click", () => {
-    deleteButton.parentNode.style.transform = "scale(0.01)";
+    deleteButton.parentNode.style.transform = "scale(1.07)";
     setTimeout(() => {
-      obj.delete = true;
-      clearAlarmList();
-    }, 400);
+      deleteButton.parentNode.style.transform = "scale(0.01)";
+      deleteButton.parentNode.style.opacity = "0%"
+      setTimeout(() => {
+        obj.delete = true;
+        clearAlarmList();
+        uppdateAlarmList();
+      }, 600);
+
+    },400)
   });
 }
 
@@ -604,9 +644,10 @@ function hornAlarm() {
   }, 500);
 }
 
+checkDevice();
 window.addEventListener("resize", checkDevice);
 window.addEventListener("DOMContentLoaded", () => {
-  checkDevice();
+  
   initApp();
   setInterval(setTime, 1000);
 });

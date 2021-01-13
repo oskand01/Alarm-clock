@@ -71,6 +71,8 @@ footer {
   justify-content: center;
   background-color: inherit;
   margin-top: auto;
+  -webkit-box-shadow: 0px -7px 5px -7px #DCE2E5; 
+  box-shadow: 0px -7px 5px -7px  #DCE2E5);
 }
 
 footer img {
@@ -87,27 +89,6 @@ address {
   justify-content: center;
 }
 
-input {
-  font: 400 22vw roboto;
-  margin: 0;
-  padding: 0;
-  color: #3d3d3d;
-  max-width: 28vw;
-  background-color: inherit;
-  border: none;
-  transition: 0.3s linear;
-}
-
-input:focus {
-  outline: none;
-}
-
-::placeholder {
-  /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #ead7d7;
-  opacity: 1; /* Firefox */
-  transition: 0.3s linear;
-}
 
 .clock-container {
   width: 100%;
@@ -116,8 +97,8 @@ input:focus {
   background-color: #e2ebf3;
   margin: 0 auto;
 
-  -webkit-box-shadow: #d4e2ed 0px 0.05vw 0.02vw 0px;
-  box-shadow: #d4e2ed 0px 0.05vw 0.02vw 0px;
+  -webkit-box-shadow: #d4e2ed 0px 1vw 2vw 0px;
+  box-shadow: #d4e2ed 0vw .2vw .8vw 0px;
   transition: all 0.1s linear;
   max-height: 35vw;
   min-height: 35vw;
@@ -327,25 +308,24 @@ input:focus {
 .alarm-container {
   background-color: #f8f1f1;
   height: 100%;
-  height: calc(100vh - 48vw - 10vw);
+  height: calc(100vh - 58vw);
 
   width: 100%;
 
   margin: 0 auto;
   z-index: 3000;
 
-  padding: 4vw;
+  padding: 4vw 4vw 0vw;
 }
 
 #alarm-list-container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto 0;
-  max-height: 63vh;
+  
 
-  padding: 4vw 4vw 0vw;
-  overflow: scroll;
-  height: calc(100vh - 48vw - 10vw);
+  padding: 4vw 0vw 0vw;
+  height: calc(100vh - 62vw);
   transition: 0.5s;
 }
 
@@ -362,7 +342,7 @@ input:focus {
 }
 
 #alarm-list {
-  height: calc(100vh - 80vw);
+  height: calc(100vh - 74vw);
   overflow: scroll;
   scroll-behavior: smooth;
 }
@@ -426,12 +406,11 @@ input:focus {
 }
 
 .alarm-list-item {
-  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   min-height: 3vw;
-  margin-top: 5vw;
+  margin: 4.5vw 4vw 4vw;
   padding: 2.8vw 2.5vw;
   padding-left: 3.5vw;
   border-radius: 0.4rem;
@@ -445,6 +424,17 @@ input:focus {
   outline: none;
   border: none;
 }
+
+.alarm-list-item:focus {
+  box-shadow: 1px 2px 13px 0px #F1E4E4;
+}
+ 
+
+.alarm-list-item:first-child { 
+  margin-top: 2vw;
+}
+
+
 
 /* .alarm-list-item:nth-child(3n + 2) {
   background-color: #fff3d6;
