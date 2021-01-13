@@ -20,6 +20,7 @@ function Alarm(hour, minute) {
 function initApp() {
   document.getElementById("date").textContent = getDate();
   setTime();
+  getLocalStorage();
   uppdateAlarmList();
   initiateNewAlarmButton();
   fillSelectHour();
@@ -61,6 +62,18 @@ function checkDevice() {
         setListItemHeight();
       }
     });
+  }
+}
+
+function addToLocalStorage() {
+  window.localStorage.setItem("alarms", JSON.stringify(alarms));
+}
+
+function getLocalStorage() {
+  let storedAlarms = JSON.parse(window.localStorage.getItem("alarms"));
+  if (storedAlarms !== null) {
+    for (let i = 0; i < storedAlarms.length.length; i++);
+    alarms.push(...storedAlarms);
   }
 }
 
@@ -372,6 +385,7 @@ function checkAlarmInput() {
 
 function createAlarm(hour, min) {
   alarms.push(new Alarm(hour, min));
+  
 
   setTimeout(() => {
     clearAlarmList();
@@ -392,6 +406,7 @@ function uppdateAlarmList() {
     for (let i = 0; i < alarms.length; i++) {
       if (alarms[i].delete === true) {
         alarms.splice(i, 1);
+        addToLocalStorage();
         uppdateAlarmList();
       }
     }
@@ -458,6 +473,7 @@ function setAlarmColor(obj, alarmListItem, i) {
 
       alarmListItem.style.transform = "scale(1.07)";
       obj.isNew = false;
+      addToLocalStorage();
       setTimeout(() => {
         alarmListItem.style.transform = "scale(1)";
 
@@ -510,10 +526,13 @@ function initActiveButton(activeButton, obj) {
       activeButton.childNodes[0].src = "/media/alarm.svg";
       activeButton.parentNode.className =
         "alarm-list-item alarm-list-item-inactive";
+        addToLocalStorage();
     } else {
       obj.active = true;
       activeButton.childNodes[0].src = "/media/alarm-fill.svg";
       activeButton.parentNode.className = "alarm-list-item";
+      addToLocalStorage();
+
     }
   });
 }
