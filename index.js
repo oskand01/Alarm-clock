@@ -418,11 +418,19 @@ function createAlarmElements() {
   const alarmList = document.getElementById("alarm-list");
 
   for (let i = 0; i < alarms.length; i++) {
-    alarmList.prepend(createAlarmListItem(alarms[i], i));
+    alarmList.prepend(createAlarmContainer(alarms[i], i));
   }
 }
 
-function createAlarmListItem(obj, i) {
+function createAlarmContainer(obj, i) {
+  const alarmContainer = document.createElement("div");
+  alarmContainer.className = "alarm-list-item-container";
+  alarmContainer.appendChild(createAlarmListItem(obj, i, alarmContainer));
+  return alarmContainer;
+  
+}
+
+function createAlarmListItem(obj, i, alarmContainer) {
   const alarmListItem = document.createElement("li");
   alarmListItem.tabIndex = "-1";
 
@@ -436,14 +444,14 @@ function createAlarmListItem(obj, i) {
   alarmListItem.appendChild(createAlarmHeader(obj));
   alarmListItem.appendChild(createDeleteAlarmButton(obj));
 
-  setAlarmColor(obj, alarmListItem, i);
+  setAlarmColor(obj, alarmListItem, i, alarmContainer);
   setAlarmShadowColor(obj, alarmListItem);
 
   return alarmListItem;
 }
 
 /* Gives new Alarm random color from array. If there are more then one alarm it can´t have the same color as the two previous alarms */
-function setAlarmColor(obj, alarmListItem, i) {
+function setAlarmColor(obj, alarmListItem, i, alarmContainer) {
   let colors = ["#fadcdb", "#fff3d6", "#e4f1e4", "#e2ebf3", "#F2E3EC"];
   let x = 1;
 
@@ -464,17 +472,17 @@ function setAlarmColor(obj, alarmListItem, i) {
       }
     }
 
-    alarmListItem.style.transform = "scale(0.01)";
+    alarmContainer.style.transform = "scale(0.01)";
     alarmListItem.style.backgroundColor = obj.color;
 
     setTimeout(() => {
       alarmListItem.focus();
 
-      alarmListItem.style.transform = "scale(1.07)";
+      alarmContainer.style.transform = "scale(1.07)";
       obj.isNew = false;
       addToLocalStorage();
       setTimeout(() => {
-        alarmListItem.style.transform = "scale(1)";
+        alarmContainer.style.transform = "scale(1)";
 
         newAlarmButtonFocus();
       }, 650);
@@ -556,10 +564,10 @@ function createDeleteAlarmButton(obj) {
 
 function initDeleteAlarmButton(deleteButton, obj) {
   deleteButton.addEventListener("click", () => {
-    deleteButton.parentNode.style.transform = "scale(1.07)";
+    deleteButton.parentNode.parentNode.style.transform = "scale(1.07)";
     setTimeout(() => {
-      deleteButton.parentNode.style.transform = "scale(0.01)";
-      deleteButton.parentNode.style.opacity = "0%";
+      deleteButton.parentNode.parentNode.style.transform = "scale(0.01)";
+      deleteButton.parentNode.parentNode.style.opacity = "0%";
       setTimeout(() => {
         obj.delete = true;
         clearAlarmList();

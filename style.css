@@ -72,7 +72,7 @@ footer {
   background-color: inherit;
   margin-top: auto;
   -webkit-box-shadow: 0px -7px 5px -7px #DCE2E5; 
-  box-shadow: 0px -7px 5px -7px  #DCE2E5);
+  box-shadow: 0px -7px 5px -7px  #DCE2E5;
 }
 
 footer img {
@@ -192,6 +192,8 @@ address {
 
   justify-content: center;
 }
+
+
 
 #alarm-hour {
   display: none;
@@ -405,12 +407,21 @@ address {
   outline: none;
 }
 
+.alarm-list-item-container {
+  -webkit-box-shadow: 0px 2px 7px -1px #F1E4E4; 
+  box-shadow: 0px 2px 7px -1px #F1E4E4;
+  margin: 4.5vw 4vw 4vw;
+  border-radius: 0.4rem;
+  transition: 0.5s;
+
+}
+
 .alarm-list-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
   min-height: 3vw;
-  margin: 4.5vw 4vw 4vw;
+  
   padding: 2.8vw 2.5vw;
   padding-left: 3.5vw;
   border-radius: 0.4rem;
